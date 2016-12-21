@@ -5,6 +5,7 @@ insert into role(name) values ("BARTENDER");
 insert into role(name) values ("COOK");
 insert into role(name) values ("RESTAURAN_MANAGER");
 insert into role(name) values ("SELLER");
+insert into role(name) values ("BOSS");
 
 
 
@@ -25,3 +26,4 @@ insert into bartender(email,first_name,last_name,password,role) values('bart2@en
 insert into cook(email,first_name,last_name,password,role) values('cook@1.com','Dzejmi','Oliver','111',5);
 insert into cook(email,first_name,last_name,password,role) values('cook@2.com','Petar','Petrovic','222',5);
 
+insert into BOSS(email,first_name,last_name,password,role) values('capo@2.com','Petar','Petrovic','222',6);
