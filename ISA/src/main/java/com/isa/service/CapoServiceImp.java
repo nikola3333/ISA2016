@@ -7,7 +7,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.isa.entity.CapoDiTuttiCappi;
+import com.isa.entity.CapoDiTuttiCapi;
 import com.isa.entity.Guest;
 import com.isa.repository.CapoRepository;
 
@@ -25,28 +25,28 @@ public class CapoServiceImp implements CapoService
 	}
 	
 	@Override
-	public List<CapoDiTuttiCappi> findAll() {
-		return (List<CapoDiTuttiCappi>) repository.findAll();
+	public List<CapoDiTuttiCapi> findAll() {
+		return (List<CapoDiTuttiCapi>) repository.findAll();
 		
 	}
 
 	@Override
-	public CapoDiTuttiCappi findByEmail(String email) {
+	public CapoDiTuttiCapi findByEmail(String email) {
 		return repository.findByEmail(email);
 	}
 
 	@Override
-	public CapoDiTuttiCappi findById(Long id) {
+	public CapoDiTuttiCapi findById(Long id) {
 		return repository.findOne(id);
 	}
 
 	@Override
-	public CapoDiTuttiCappi save(CapoDiTuttiCappi capo) {
+	public CapoDiTuttiCapi save(CapoDiTuttiCapi capo) {
 		return repository.save(capo);
 	}
 
 	@Override
-	public void delete(CapoDiTuttiCappi capo) {
+	public void delete(CapoDiTuttiCapi capo) {
 		repository.delete(capo);
 	}
 

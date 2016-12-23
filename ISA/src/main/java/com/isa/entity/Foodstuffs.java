@@ -6,11 +6,26 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity(name = "BOSS")
-public class CapoDiTuttiCappi extends User{
 
+@Entity
+public class Foodstuffs {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "BOSS_ID")
+	@Column(name = "FOODSTUFFS_ID")
 	private Long id;
+
+	@Column
+	private String name;
+
+	@Column
+	private String text;
+
+	@Column
+	private Integer price;
+
+	@Column
+	private Integer amount;
+
+
 }

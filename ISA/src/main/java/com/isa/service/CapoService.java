@@ -6,18 +6,18 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
-import com.isa.entity.CapoDiTuttiCappi;
+import com.isa.entity.CapoDiTuttiCapi;
 import com.isa.entity.Guest;
 
 public interface CapoService {
 
-	List<CapoDiTuttiCappi> findAll();
+	List<CapoDiTuttiCapi> findAll();
 	
-	public CapoDiTuttiCappi findByEmail(String email);
+	public CapoDiTuttiCapi findByEmail(String email);
 	
-	public CapoDiTuttiCappi findById(Long id);
+	public CapoDiTuttiCapi findById(Long id);
 	
-	public CapoDiTuttiCappi save(CapoDiTuttiCappi guest);
+	public CapoDiTuttiCapi save(CapoDiTuttiCapi guest);
 	
-	public void delete(CapoDiTuttiCappi guest);
+	public void delete(CapoDiTuttiCapi guest);
 }
