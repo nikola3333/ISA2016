@@ -5,6 +5,7 @@ insert into role(name) values ("BARTENDER");
 insert into role(name) values ("COOK");
 insert into role(name) values ("RESTAURAN_MANAGER");
 insert into role(name) values ("SELLER");
+insert into role(name) values ("BOSS");
 
 
 insert into user(email,first_name,last_name,password,role) values ('danilo@a.com', 'b', 'b', 'b',1);
@@ -45,3 +46,4 @@ insert into user(email,first_name,last_name,password,role) values('seller1@rest.
 insert into seller(user_id) values(13);
 insert into user(email,first_name,last_name,password,role) values('seller2@rest.com','Vojislav','Rakocevic','789',7);
 insert into seller(user_id) values(14);
+
