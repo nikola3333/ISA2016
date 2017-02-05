@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.isa.entity.User;
 import com.isa.entity.UserLogin;
+import com.isa.exceptions.UserNotFoundException;
 import com.isa.service.UserService;
 
 @RestController
@@ -20,6 +21,10 @@ public class UserController {
 	
 	@RequestMapping(method = RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
 	private User findUserByEmail(@RequestBody UserLogin userLogin){
-		return userService.findUserByEmail(userLogin.getEmail(), userLogin.getPassword());
+		User user = userService.findUserByEmail(userLogin.getEmail(), userLogin.getPassword());
+		if(user == null)throw new UserNotFoundException(userLogin.getEmail());
+		
+		return user;
 	}
+	
 }

@@ -11,6 +11,4 @@ public interface SellerRepository extends CrudRepository<Seller, Long>{
 	@Query("select s from Seller s where s.email = :email")
 	public Seller findByEmail(@Param("email")String email);
 	
-	@Query("select s from Seller s where s.id = :id")
-	public Seller findById(@Param("id")Long id);
 }

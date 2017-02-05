@@ -11,7 +11,6 @@ public interface GuestRepository extends CrudRepository<Guest, Long>{
 	@Query("select g from Guest g where g.email = :email")
 	public Guest findByEmail(@Param("email")String email);
 	
-	@Query("select g from Guest g where g.id = :id")
-	public Guest findById(@Param("id")Long id);
+
 
 }

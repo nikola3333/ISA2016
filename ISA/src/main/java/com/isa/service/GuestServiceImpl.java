@@ -25,28 +25,33 @@ public class GuestServiceImpl implements GuestService{
 	@Override
 	public Guest findByEmail(String email) {
 		// TODO Auto-generated method stub
-		Guest guest = guestRepository.findByEmail(email);
-		if(guest != null)
-			return guest;
-		else 
-			return null;
+
+			return guestRepository.findByEmail(email);
 	}
 
-	@Override
-	public Guest findById(Long id) {
-		// TODO Auto-generated method stub
-		return guestRepository.findById(id);
-	}
+
 
 	@Override
 	public Guest save(Guest guest) {
-		// TODO Auto-generated method stub
 		return guestRepository.save(guest);
 	}
 
 	@Override
-	public void delete(Guest guest) {
-		guestRepository.delete(guest);
+	public void delete(Guest guest) {	
+		guestRepository.delete(guest.getId());
+	}
+
+	@Override
+	public Guest findOne(Long id) {
+		// TODO Auto-generated method stub
+		return guestRepository.findOne(id);
+	}
+
+	@Override
+	public void confirmRegistration(Long id) {
+		Guest g = guestRepository.findOne(id);
+		g.setConfirmedRegistration(true);
+		guestRepository.save(g);
 	}
 
 }

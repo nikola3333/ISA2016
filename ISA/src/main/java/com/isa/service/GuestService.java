@@ -11,9 +11,11 @@ public interface GuestService {
 	
 	public Guest findByEmail(String email);
 	
-	public Guest findById(Long id);
+	public Guest findOne(Long id);
 	
-	public Guest save(Guest guest);
+	public Guest save(Guest guest) ;
 	
 	public void delete(Guest guest);
+
+	public void confirmRegistration(Long id);
 }

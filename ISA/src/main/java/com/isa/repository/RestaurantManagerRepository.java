@@ -12,6 +12,5 @@ public interface RestaurantManagerRepository extends CrudRepository<RestauranMan
 	@Query("select m from RestauranManager m where m.email = :email")
 	public RestauranManager findByEmail(@Param("email")String email);
 	
-	@Query("select m from RestauranManager m where m.id = :id")
-	public RestauranManager findById(@Param("id")Long id);
+
 }

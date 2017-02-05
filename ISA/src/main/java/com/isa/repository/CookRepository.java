@@ -11,6 +11,5 @@ public interface CookRepository extends CrudRepository<Cook, Long>{
 	@Query("select c from Cook c where c.email = :email")
 	public Cook findByEmail(@Param("email")String email);
 	
-	@Query("select c from Cook c where c.id = :id")
-	public Cook findById(@Param("id")Long id);
+
 }

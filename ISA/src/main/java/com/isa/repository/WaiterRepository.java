@@ -11,6 +11,5 @@ public interface WaiterRepository extends CrudRepository<Waiter, Long>{
 	@Query("select w from Waiter w where w.email = :email")
 	public Waiter findByEmail(@Param("email")String email);
 	
-	@Query("select w from Waiter w where w.id = :id")
-	public Waiter findById(@Param("id")Long id);
+
 }

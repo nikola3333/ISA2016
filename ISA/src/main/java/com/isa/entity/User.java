@@ -1,16 +1,23 @@
 package com.isa.entity;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MappedSuperclass;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
-@MappedSuperclass
-public abstract class User {
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+public class User {
 
+	private Long id;
+	
 	private String email;
 
 	private String password;
@@ -32,6 +39,18 @@ public abstract class User {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.role = role;
+	}
+	
+		
+	@Id
+	@GeneratedValue
+	@Column(name = "user_id")
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	@Email
