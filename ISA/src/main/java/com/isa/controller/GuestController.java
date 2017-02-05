@@ -50,4 +50,13 @@ public class GuestController {
 		guestService.confirmRegistration(id);
 	}
 	
+	@RequestMapping(value = "/email", method = RequestMethod.POST)
+	public boolean findByEmail(@RequestBody String email){
+		Guest g = guestService.findByEmail(email);
+		if(g != null)
+			return false;
+		else
+			return true;
+	}
+	
 }

@@ -41,7 +41,6 @@ public class User {
 		this.lastName = lastName;
 		this.role = role;
 	}
-	
 		
 	@Id
 	@GeneratedValue
