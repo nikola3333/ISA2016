@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.isa.entity.CapoDiTuttiCapi;
-import com.isa.entity.Guest;
 import com.isa.repository.CapoRepository;
 
 

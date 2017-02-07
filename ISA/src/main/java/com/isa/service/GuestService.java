@@ -16,6 +16,8 @@ public interface GuestService {
 	public Guest save(Guest guest) ;
 	
 	public void delete(Guest guest);
+	
+	public Guest update(Guest guest);
 
 	public void confirmRegistration(Long id);
 }

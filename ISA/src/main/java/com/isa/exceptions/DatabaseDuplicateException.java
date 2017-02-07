@@ -1,16 +1,18 @@
 package com.isa.exceptions;
 
-import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
-public class DatabaseDuplicateException extends MySQLIntegrityConstraintViolationException{
+@ResponseStatus(HttpStatus.FORBIDDEN)
+public class DatabaseDuplicateException extends RuntimeException{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public DatabaseDuplicateException() {
-		super("User with entered username already exists");
+	public DatabaseDuplicateException(String text) {
+		super(text);
 	}
 	
 }

@@ -28,7 +28,10 @@
         	RegisterService.CheckEmail(vm.user.email)
         	.then(
         			function(response){
-        				vm.emailExist = !response.data;
+        				if(reponse.data != null)
+        					vm.emailExist = true;
+        				else
+        					vm.emailExist = false;
         			},
         			function(errorResponse){
         				vm.emailExist = false;

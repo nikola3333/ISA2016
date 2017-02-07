@@ -10,20 +10,22 @@
 	function config($routeProvider,$locationProvider){
 		$routeProvider
 		.when('/homePage',{
-			templateUrl : 'app-guest/guest.view.Home.html',
+			templateUrl : 'app-guest/guest.view.Home.html',			
+			controller : 'GuestController',
+			controllerAs : 'vm'
 		})
 		
 		.when('/',{
+			templateUrl:'login/login.view.html',			
 			controller:'LoginController',
-			templateUrl:'login/login.view.html',
 			controllerAs:'vm'
 		})
 		.when('/register',{
-			controller :'RegisterController',
 			templateUrl : 'register/register.view.html',
+			controller :'RegisterController',
 			controllerAs :'vm'
 		})
-		.otherwise({redirectTo:'/'})
+		.otherwise({redirectTo:'/#'})
 	}
 	
 	run.$inject = ['$rootScope','$location','$cookies','$http'];

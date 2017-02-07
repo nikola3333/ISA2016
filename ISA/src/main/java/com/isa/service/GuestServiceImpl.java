@@ -11,14 +11,14 @@ import com.isa.repository.GuestRepository;
 
 @Service
 @Transactional
-public class GuestServiceImpl implements GuestService{
-	
+public class GuestServiceImpl implements GuestService {
+
 	@Autowired
 	private GuestRepository guestRepository;
 
 	@Override
 	public List<Guest> findAll() {
-		
+
 		return (List<Guest>) guestRepository.findAll();
 	}
 
@@ -26,10 +26,8 @@ public class GuestServiceImpl implements GuestService{
 	public Guest findByEmail(String email) {
 		// TODO Auto-generated method stub
 
-			return guestRepository.findByEmail(email);
+		return guestRepository.findByEmail(email);
 	}
-
-
 
 	@Override
 	public Guest save(Guest guest) {
@@ -37,7 +35,7 @@ public class GuestServiceImpl implements GuestService{
 	}
 
 	@Override
-	public void delete(Guest guest) {	
+	public void delete(Guest guest) {
 		guestRepository.delete(guest.getId());
 	}
 
@@ -52,6 +50,13 @@ public class GuestServiceImpl implements GuestService{
 		Guest g = guestRepository.findOne(id);
 		g.setConfirmedRegistration(true);
 		guestRepository.save(g);
+	}
+
+	@Override
+	public Guest update(Guest guest) {
+		Guest g = guestRepository.findByEmail(guest.getEmail());
+		g.setPassword(guest.getPassword());
+		return guestRepository.save(g);
 	}
 
 }

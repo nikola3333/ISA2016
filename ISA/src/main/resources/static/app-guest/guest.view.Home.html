@@ -1,3 +1,177 @@
+
 <div>
-	<h1>GUEST HOME PAGE</h1>
+	<div class="jumbotron">
+		<div class="container">
+			<div class="col-sm-8 col-sm-offset-2">
+				<ul class="nav nav-pills nav-justified">
+					<li role="presentation"
+						ng-class="{active : vm.restaurantsSelected}"><a
+						ng-click="vm.showRestaurants()">Restaurants</a></li>
+					<li role="presentation" ng-class="{active : vm.friendsSelected}"><a
+						ng-click="vm.showFriends()">Friends</a></li>
+					<li role="presentation" ng-class="{active : vm.profileSelected}"><a
+						ng-click="vm.showProfile()">Profile</a></li>
+				</ul>
+
+			</div>
+		</div>
+	</div>
+
+	<div ng-show="vm.profileSelected">
+
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 col-md-offset-3">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4>User Profile</h4>
+						</div>
+						<div class="panel-body">
+							<div class="box box-info">
+								<div class="box-body">
+									<div class="col-sm-6">
+										<div align="center">
+											<img alt="User Pic"
+												src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg"
+												id="profile-image1" class="img-circle img-responsive">
+
+
+											<!--Upload Image Js And Css-->
+
+										</div>
+										<br>
+										<!-- /input-group -->
+									</div>
+									<div class="col-sm-6">
+										<h4 style="color: #00b1b1;">USER NAME</h4>
+									</div>
+
+									<div class="clearfix"></div>
+							
+									<hr style="margin: 5px 0 5px 0;">
+
+
+									<div class="col-sm-5 col-xs-6 tital ">First Name:</div>
+									<div class="col-sm-7 col-xs-6 ">Prasad</div>
+									<div class="clearfix"></div>
+									<div class="bot-border"></div>
+									<div>
+										<br>
+									</div>
+									<div class="col-sm-5 col-xs-6 tital ">Last Name:</div>
+									<div class="col-sm-7">{{vm.loggedUser.firstName}}</div>
+									<div class="clearfix"></div>
+									<div class="bot-border"></div>
+									<div>
+										<br>
+									</div>
+									<div class="col-sm-5 col-xs-6 tital ">Email:</div>
+									<div class="col-sm-7">15 Jun 2016</div>
+									<div class="clearfix"></div>
+									<div class="bot-border"></div>
+									<div>
+										<br>
+									</div>
+									<div class="col-sm-5 col-xs-6 tital ">Password:</div>
+									<div ng-hide = "vm.update" class="col-sm-7">{{vm.loggedUser.password}}</div>
+									<div ng-show = "vm.update" class="col-sm-7"><input type = "password" ng-model = "vm.loggedUser.password"class = "form-control"></div>
+
+									<div class="clearfix"></div>
+									<div class="bot-border"></div>
+									<div>
+										<br>
+									</div>									
+									<div class="col-sm-5 col-xs-6 tital ">Number od reservations:</div>
+									<div  class="col-sm-7">44</div>
+									
+									<div class="clearfix"></div>
+									<div class="bot-border"></div>
+									<div>
+										<br>
+									</div>
+									<div class="bot-border"></div>
+									<div ng-hide = "vm.update" class="col-sm-6">
+										<button type = "button" style = "width:150px" class = "btn btn-default" ng-click = "vm.updateAccount()">Edit</button>
+									</div>
+									<div ng-show = "vm.update" class="col-sm-6">
+										<button type = "button" style = "width:150px" class = "btn btn-default" ng-click = "vm.saveChanges()">Confirm changes</button>
+									</div>
+									<!-- /.box-body -->
+								</div>
+								<!-- /.box -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<br>
+			<br>
+			<br>
+		<!-- /input-group -->
+		</div>
+
+		<div class="row">
+			<div class="col-lg-5">
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Search for...">
+					<span class="input-group-btn">
+						<button class="btn btn-default" style = "width:150px" type="button">
+							<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+							Search
+						</button>
+					</span>
+				</div>
+			</div>
+		</div>
+
+		
+		<div class="row ">
+			<div class="col-md-5">
+				<table class="table">
+					<tr ng-repeat="friend in vm.friends"
+						ng-click="vm.showSelectedPerson($index)">
+						<td>{{friend.name}} {{friend.lastName}}</td>
+						<td class="text-right">
+						<button type="button" style = "width:150px" class="btn btn-primary" ng-click="vm.sendFriendRequest($index)">Add friend</button></td>
+					</tr>
+				</table>
+			</div>
+			<div class="col-md-5 col-md-offset-1">
+				<div class="panel panel-default">
+
+					<div class="panel-body">
+						<div class="col-sm-4">
+							<br>
+							<!-- /input-group -->
+						</div>
+						<div class="clearfix"></div>
+						<div class="col-sm-5 col-xs-6 tital ">First Name:</div>
+						<div class="col-sm-7 col-xs-6 ">{{vm.selectedPerson.name}}</div>
+						<div class="clearfix"></div>
+						<div class="bot-border"></div>
+						<div>
+							<br>
+						</div>
+						<div class="col-sm-5 col-xs-6 tital ">Last Name:</div>
+						<div class="col-sm-7">{{vm.selectedPerson.lastName}}</div>
+						<div class="clearfix"></div>
+						<div class="bot-border"></div>
+						<div>
+							<br>
+						</div>
+						<div class="col-sm-5 col-xs-6 tital ">Email:</div>
+						<div class="col-sm-7">{{vm.selectedPerson.email}}</div>
+						<div class="clearfix"></div>
+						<div class="bot-border"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
 </div>
