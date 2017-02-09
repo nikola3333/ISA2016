@@ -9,9 +9,22 @@ insert into role(name) values ("BOSS");
 
 
 insert into user(email,first_name,last_name,password,role) values ('danilo@a.com', 'b', 'b', 'b',1);
-insert into guest(confirmed_registration,user_id) values(0,1);
+insert into guest(confirmed_registration,user_id) values(1,1);
 insert into user(email,first_name,last_name,password,role) values('abc@d.com' , 'Branko','Dragas','123',1);
-insert into guest(confirmed_registration,user_id) values(0,2);
+insert into guest(confirmed_registration,user_id) values(1,2);
+
+
+insert into user(email,first_name,last_name,password,role) values ('laza@l.com', 'laza', 'lazic', 'b',1);
+insert into guest(confirmed_registration,user_id) values(1,3);
+insert into user(email,first_name,last_name,password,role) values('ttt@t.com' , 'Toni','Tonic','123',1);
+insert into guest(confirmed_registration,user_id) values(1,4);
+
+insert into user(email,first_name,last_name,password,role) values ('www@w.com', 'ludi', 'ludic', 'b',1);
+insert into guest(confirmed_registration,user_id) values(1,5);
+insert into user(email,first_name,last_name,password,role) values('beli@b.com' , 'Beli','belic','123',1);
+insert into guest(confirmed_registration,user_id) values(1,6);
+
+
 
 
 insert into user(email,first_name,last_name,password,role)  values('efg@h.com','janko','jankovic','123',2);
