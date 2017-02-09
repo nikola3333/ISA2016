@@ -5,9 +5,10 @@
 		.module('app',['ngRoute','ngCookies'])
 		.config(config)
 		.run(run);
-	
-	config.$inject = ['$routeProvider','$locationProvider'];
-	function config($routeProvider,$locationProvider){
+	config.$inject = ['$qProvider','$routeProvider','$locationProvider'];
+	function config($qProvider,$routeProvider,$locationProvider){
+	    $qProvider.errorOnUnhandledRejections(false);
+
 		$routeProvider
 		.when('/homePage',{
 			templateUrl : 'app-guest/guest.view.Home.html',			
@@ -27,7 +28,7 @@
 		})
 		.otherwise({redirectTo:'/#'})
 	}
-	
+
 	run.$inject = ['$rootScope','$location','$cookies','$http'];
 	function run($rootScope,$location,$cookies,$http){
 		$rootScope.globals = $cookies.getObject('globals') || {};
