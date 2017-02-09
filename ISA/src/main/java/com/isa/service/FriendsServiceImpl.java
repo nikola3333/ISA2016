@@ -1,5 +1,6 @@
 package com.isa.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,18 @@ public class FriendsServiceImpl implements FriendsService{
 	GuestRepository guestRepository;
 	
 	@Override
-	public List<Friends> getUsersFriends(String userEmail) {
-		return friendsRepository.findUsersFriends(userEmail);
+	public List<Guest> getUsersFriends(String userEmail) {
+		ArrayList<Friends> f = new ArrayList<>( friendsRepository.findUsersFriends(userEmail));
+		ArrayList<Guest> friends = new ArrayList<>();
+		for(Friends ff : f){
+			if(ff.getRequestResponder().getEmail().equals(userEmail)){
+				friends.add(ff.getRequestSender());
+			}
+			else{
+				friends.add(ff.getRequestResponder());
+			}
+		}
+		return friends;
 	}
 
 	@Override
@@ -45,5 +56,24 @@ public class FriendsServiceImpl implements FriendsService{
 		Friends f = friendsRepository.findOne(friendsId);
 		f.setConfirmedFriendship(true);
 		return friendsRepository.save(f);
+	}
+
+	@Override
+	public void removeFromFriendsList(Long id,Long friendId) {
+		Friends friends = friendsRepository.findFriendship(id, friendId).get(0);
+		if(friends == null) throw new IllegalArgumentException("Friendship doesn't exist");
+		friendsRepository.delete(friends);
+	}
+
+	@Override
+	public List<Friends> getFriendRequests(String email) {
+		// TODO Auto-generated method stub
+		return friendsRepository.findUserFriendRequests(email);
+	}
+
+	@Override
+	public void declineFriendRequest(Long id) {
+		friendsRepository.delete(id);
+		
 	}
 }

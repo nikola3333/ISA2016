@@ -1,5 +1,7 @@
 package com.isa.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,12 +20,14 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
-	
+	@Autowired
+	private HttpSession session;
 	@RequestMapping(method = RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
 	private User findUserByEmail(@RequestBody UserLogin userLogin){
 		User user = userService.findUserByEmail(userLogin.getEmail(), userLogin.getPassword());
 		if(user == null)throw new UserNotFoundException(userLogin.getEmail());
 		
+		session.setAttribute("user", user);
 		return user;
 	}
 	

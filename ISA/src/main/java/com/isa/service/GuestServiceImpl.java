@@ -1,5 +1,6 @@
 package com.isa.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,20 @@ public class GuestServiceImpl implements GuestService {
 		Guest g = guestRepository.findByEmail(guest.getEmail());
 		g.setPassword(guest.getPassword());
 		return guestRepository.save(g);
+	}
+
+	@Override
+	public List<Guest> findNoneFriends(Long id) {
+		// TODO Auto-generated method stub
+		ArrayList<Guest> noneFriends = new ArrayList<Guest>(guestRepository.findNoneFriends(id));
+		Guest loggedUser = null;
+		for(Guest g : noneFriends){
+			if(g.getId().equals(id)){
+				loggedUser = g;
+			}
+		}
+		noneFriends.remove(loggedUser);
+		return noneFriends;
 	}
 
 }

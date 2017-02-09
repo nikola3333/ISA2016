@@ -2,6 +2,8 @@ package com.isa.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,13 +24,26 @@ public class GuestController {
 	private GuestService guestService;
 	@Autowired
 	private MessageService messageService;
+	@Autowired
+	HttpSession session;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public List<Guest> findAll(){
 		return guestService.findAll();
 	}
 	
-
+	@RequestMapping(value = "/none" ,method = RequestMethod.GET)
+	public List<Guest> findNoneFriends(){
+		Guest g = (Guest) session.getAttribute("user");
+		return guestService.findNoneFriends(g.getId());
+		
+	}
+	
+	
+	@RequestMapping(method = RequestMethod.POST)
+	public Guest update(@RequestBody Guest guest){
+		return guestService.save(guest);
+	}
 	@RequestMapping(method = RequestMethod.PUT,consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Guest save(@RequestBody Guest guest){
 		Guest g = guestService.save(guest);
@@ -50,12 +65,12 @@ public class GuestController {
 		guestService.confirmRegistration(id);
 	}
 	
-	@RequestMapping(value = "/email", method = RequestMethod.POST)
-	public Guest findByEmail(@RequestBody String email){
-		return guestService.findByEmail(email);
+	@RequestMapping(value = "/user", method = RequestMethod.GET)
+	public Guest findByEmail(){
+		Guest g = (Guest)session.getAttribute("user");
+		return guestService.findByEmail(g.getEmail());
 	}
 	
+	
 
-	
-	
 }

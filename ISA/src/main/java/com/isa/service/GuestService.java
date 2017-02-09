@@ -20,4 +20,6 @@ public interface GuestService {
 	public Guest update(Guest guest);
 
 	public void confirmRegistration(Long id);
+
+	public List<Guest> findNoneFriends(Long id);
 }
