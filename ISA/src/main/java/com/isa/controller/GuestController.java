@@ -36,14 +36,13 @@ public class GuestController {
 	public List<Guest> findNoneFriends(){
 		Guest g = (Guest) session.getAttribute("user");
 		return guestService.findNoneFriends(g.getId());
-		
 	}
-	
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public Guest update(@RequestBody Guest guest){
 		return guestService.save(guest);
 	}
+	
 	@RequestMapping(method = RequestMethod.PUT,consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Guest save(@RequestBody Guest guest){
 		Guest g = guestService.save(guest);
@@ -71,6 +70,11 @@ public class GuestController {
 		return guestService.findByEmail(g.getEmail());
 	}
 	
+	@RequestMapping(value = "/none/{condition}",method = RequestMethod.GET)
+	public List<Guest> searchNoneFriends(@PathVariable String condition){
+		Guest g = (Guest) session.getAttribute("user");
+		return guestService.findNoneFriends(g.getId(), condition);
+	}
 	
 
 }

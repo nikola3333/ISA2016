@@ -22,4 +22,6 @@ public interface GuestService {
 	public void confirmRegistration(Long id);
 
 	public List<Guest> findNoneFriends(Long id);
+	
+	public List<Guest> findNoneFriends(Long id,String condition);
 }

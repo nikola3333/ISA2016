@@ -63,4 +63,16 @@ public class FriendsController {
 		return friendsService.getFriendRequests(g.getEmail());
 	}
 	
+	@RequestMapping(value = "/{condition}",method = RequestMethod.GET)
+	public List<Guest> searchUsersFriends(@PathVariable String condition){
+		Guest g = (Guest) session.getAttribute("user");
+		return friendsService.searchUsersFriends(g.getId(), condition);
+	}
+	
+	@RequestMapping(value = "/requests/{condition}", method = RequestMethod.GET)
+	public List<Friends> searchUsersFriendsReqeusts(@PathVariable String condition){
+		Guest g = (Guest) session.getAttribute("user");
+		return friendsService.searchFriendRequests(g.getId(), condition);
+	}
+	
 }

@@ -14,5 +14,6 @@ public interface FriendsService {
 	public void declineFriendRequest(Long id);
 	
 	public List<Friends> getFriendRequests(String email);
-	
+	public List<Guest> searchUsersFriends(Long id,String condition);
+	public List<Friends> searchFriendRequests(Long id,String condition);
 }

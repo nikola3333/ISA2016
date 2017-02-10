@@ -15,7 +15,10 @@
 			controller : 'GuestController',
 			controllerAs : 'vm'
 		})
-		
+		.when('/abc',{
+			templateUrl : 'abc.html',			
+
+		})		
 		.when('/',{
 			templateUrl:'login/login.view.html',			
 			controller:'LoginController',

@@ -26,6 +26,9 @@
                     if(response.data.role.name == "GUEST"){
                     	$location.path('/homePage');
                     }
+                    if(response.data.role.name == "RESTAURAN_MANAGER"){
+                    	$location.path('/abc')
+                    }
                 }
                 else {
                 	vm.errorMessage = response.data.message;

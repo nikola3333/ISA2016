@@ -119,9 +119,9 @@
 		<div class="row">
 			<div class="col-lg-5">
 				<div class="input-group">
-					<input type="text" class="form-control" placeholder="Search for...">
+					<input type="text" class="form-control" placeholder="Search for..."  ng-model = "vm.searchCondition">
 					<span class="input-group-btn">
-						<button class="btn btn-default" style = "width:150px" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search
+						<button class="btn btn-default" style = "width:150px" type="button" ng-click = vm.searchNoneFriends()><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search
 						</button>
 					</span>
 				</div>
@@ -130,7 +130,7 @@
 
 		<div class="row ">
 				<div class="col-md-5">
-					<table class="table" ng-init = "vm.getNoneFriends()">
+					<table class="table table-hover" ng-init = "vm.searchNoneFriends()">
 						<!-- / prikaz  svih osoba koji su prijatelji,kojima je poslat zahtev ili od kojih primljen zahtev-->
 							<tr ng-repeat="friend in vm.friends" ng-click="vm.showSelectedPerson(vm.friends[$index])">
 								<td>{{friend.firstName}} {{friend.lastName}}</td>

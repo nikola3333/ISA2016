@@ -12,13 +12,16 @@
 		var service = {};
 		service.getLoggedUser = getLoggedUser;
 		service.updateGuest = updateGuest;
-		service.getNoneFriends = getNoneFriends;
-		service.getFriends = getFriends;
+		//service.getNoneFriends = getNoneFriends;
+		//service.getFriends = getFriends;
+		//service.getFriendRequests = getFriendRequests;
 		service.sendFriendRequest = sendFriendRequest;
 		service.removeFromFriendsList = removeFromFriendsList;
-		service.getFriendRequests = getFriendRequests;
 		service.acceptFriendRequest = acceptFriendRequest;
 		service.declineFriendRequest = declineFriendRequest;
+		service.searchNoneFriends = searchNoneFriends;
+		service.searchFriends = searchFriends;
+		service.searchFriendRequests = searchFriendRequests;
 		return service;
 		
 		function getLoggedUser(){
@@ -29,17 +32,17 @@
 			return $http.post('/guests',user);
 		}
 		
-		function getNoneFriends(){
+		/*function getNoneFriends(){
 			return $http.get('/guests/none');
-		}
+		}*/
 		
-		function getFriends(){
+		/*function getFriends(){
 			return $http.get('/friends')
-		}
+		}*/
 		
-		function getFriendRequests(){
+		/*function getFriendRequests(){
 			return $http.get('/friends/requests');
-		}
+		}*/
 		
 		function sendFriendRequest(senderId,recieverId){
 			return $http.put("/friends/sender/"+senderId+"/reciever/"+recieverId);
@@ -54,6 +57,18 @@
 		
 		function declineFriendRequest(id){
 			return $http.delete("/friends/"+id);
+		}
+		
+		function searchNoneFriends(condition){
+			return $http.get("/guests/none/"+condition);
+		}
+		
+		function searchFriends(condition){
+			return $http.get("/friends/"+condition);
+		}
+		
+		function searchFriendRequests(condition){
+			return $http.get("/friends/requests/"+condition);
 		}
 	}
 })();

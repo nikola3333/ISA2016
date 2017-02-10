@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Version;
 
 @Entity
 public class Friends {
@@ -15,6 +16,7 @@ public class Friends {
 	private Guest requestSender;
 	private Guest requestResponder;
 	private boolean confirmedFriendship;
+	private Long version;
 	public Friends() {
 		super();
 	}
@@ -55,6 +57,15 @@ public class Friends {
 	public void setConfirmedFriendship(boolean confirmedFriendship) {
 		this.confirmedFriendship = confirmedFriendship;
 	}
+	
+	@Version
+	public Long getVersion() {
+		return version;
+	}
+	public void setVersion(Long version) {
+		this.version = version;
+	}
 
+	
 	
 }

@@ -19,6 +19,7 @@
 		vm.noneFriends =[];//lista osoba koje nisu u listi prijatelja
 		vm.friends = [];
 		vm.friendRequests = [];
+		vm.searchCondition = "";
 		
 		vm.showRestaurants = showRestaurants;
 		vm.showFriends = showFriends;
@@ -29,22 +30,27 @@
 		vm.updateAccount = updateAccount;
 		vm.saveChanges = saveChanges;
 		vm.getLoggedUser = getLoggedUser;
-		vm.getNoneFriends = getNoneFriends;
-		vm.getFriends = getFriends;
-		vm.getFriendRequests = getFriendRequests;
+		//vm.getNoneFriends = getNoneFriends;
+		//vm.getFriends = getFriends;
+		//vm.getFriendRequests = getFriendRequests;
 		vm.removeFromFriendsList = removeFromFriendsList;
 		vm.acceptFriendRequest = acceptFriendRequest;
 		vm.declineFriendRequest = declineFriendRequest;
+		vm.searchNoneFriends = searchNoneFriends;
+		vm.searchFriends = searchFriends;
+		vm.searchFriendRequests = searchFriendRequests;
 		vm.getLoggedUser();
 		
 		
-		//nalazim logovanog gosta, radi izmene podataka
+		//nalazim logovanog gosta
 		function getLoggedUser(){
 			GuestService.getLoggedUser()
 			.then(function(user){
 				vm.loggedUser = user.data;
+				vm.update = false;
 			},function(erorrResponse){
 				vm.loggedUser = undefined;
+				console.log(httpData.message);
 			});
 		}		
 		
@@ -70,6 +76,7 @@
 			vm.selectedPerson = person;
 		}
 		
+		
 		function showSelectedPersonRequest(index){
 			if(vm.friendRequests[index].requestSender.id == vm.loggedUser.id)
 				vm.selectedPerson = vm.friendRequests[index].requestResponder;
@@ -77,8 +84,9 @@
 				vm.selectedPerson = vm.friendRequests[index].requestSender;
 		}		
 		
+		
 		//sve goste koji nisu u listi prijatelja
-		function getNoneFriends(){
+		/*function getNoneFriends(){
 			GuestService.getNoneFriends()
 			.then(function(httpData){
 				vm.noneFriends = httpData.data;
@@ -87,9 +95,10 @@
 			function(data){
 				vm.noneFriends = [];
 			})
-		}
+		}*/
 		
-		function getFriends(){
+		//ucitaj sve prijatelje logovanog gost
+		/*function getFriends(){
 			GuestService.getFriends()
 			.then(function(httpData){
 				vm.friends = httpData.data;
@@ -99,9 +108,10 @@
 				console.log(httpData.data.message);
 				
 			})
-		}
+		}*/
 		
-		function getFriendRequests(){
+		//ucitaj sve zahteve za prijateljstvo, i one koje je poslao logovani gost, i one koje primio
+		/*function getFriendRequests(){
 			GuestService.getFriendRequests()
 			.then(function(httpData){
 				vm.friendRequests = httpData.data;
@@ -110,12 +120,13 @@
 				console.log(httpData.data.message);
 				
 			})
-		}
+		}*/
 		
-		
+		//setuj polja za update acount-a
 		function updateAccount(){
 			vm.update = true;
 		}
+		
 		//izmeni podatke o logovanom korisniku
 		function saveChanges(){
 			vm.update = false;
@@ -129,49 +140,91 @@
 				vm.successUpdate = false;
 			})
 		}
+		
 		//posalji zahtev za prijateljstvo
 		function sendFriendRequest(index){
 			GuestService.sendFriendRequest(vm.loggedUser.id,vm.noneFriends[index].id)
 			.then(function(httpData){
 				vm.selectedPerson = {};
-				vm.getNoneFriends();
+				//vm.getNoneFriends();
+				vm.searchNoneFriends();
 			},
 			function(httpData){
 				console.log(httpData.data.message);
+				vm.searchNoneFriends();
 				
 			})
 		}
 		
-				
+		//brisanje iz liste prijatelja		
 		function removeFromFriendsList(index){
 			GuestService.removeFromFriendsList(vm.friends[index].id)
 			.then(function(httpData){
-				vm.getNoneFriends();
+				//vm.getNoneFriends();
+				vm.searchNoneFriends();
 			},function(httpData){
 				console.log(httpData.data.message);
-				
+				vm.searchNoneFriends();
 			})
 		}
 		
+		//prihvatanje zahteva za prijateljstvo
 		function acceptFriendRequest(index){
 			GuestService.acceptFriendRequest(vm.friendRequests[index].id)
 			.then(function(httpData){
-				vm.getNoneFriends();
+				//vm.getNoneFriends();
+				vm.searchNoneFriends();
 			},
 			function(httpData){
 				console.log(httpData.data.message);
+				vm.searchNoneFriends();
 			})
 		}
 		
+		//odbijanje zahteva za prijateljstvo
 		function declineFriendRequest(index){
 			GuestService.declineFriendRequest(vm.friendRequests[index].id)
 			.then(function(httpData){
-				vm.getNoneFriends();
+				//vm.getNoneFriends();
+				vm.searchNoneFriends();
+			},
+			function(httpData){
+				console.log(httpData.data.message);
+				vm.searchNoneFriends();
+
+			})
+		}
+		
+		function searchNoneFriends(){
+			GuestService.searchNoneFriends(vm.searchCondition)
+			.then(function(httpData){
+				vm.noneFriends = httpData.data;
+				vm.searchFriends();
+			},
+			function(httpData){
+				console.log(httpData.data.message)
+			})
+		}
+		//pronadji sve prijatelje, uz odredjeni uslov
+		function searchFriends(){
+			GuestService.searchFriends(vm.searchCondition)
+			.then(function(httpData){
+				vm.friends =httpData.data;
+				vm.searchFriendRequests();
 			},
 			function(httpData){
 				console.log(httpData.data.message);
 			})
 		}
 		
+		function searchFriendRequests(){
+			GuestService.searchFriendRequests(vm.searchCondition)
+			.then(function(httpData){
+				vm.friendRequests = httpData.data;
+			},
+			function(httpData){
+				console.log(httpData.data.message);
+			})
+		}
 	}
 })();

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.isa.entity.Friends;
 import com.isa.entity.Guest;
 import com.isa.exceptions.DatabaseDuplicateException;
+import com.isa.exceptions.ExpiredRequestException;
 import com.isa.exceptions.UserNotFoundException;
 import com.isa.repository.FriendsRepository;
 import com.isa.repository.GuestRepository;
@@ -54,6 +55,7 @@ public class FriendsServiceImpl implements FriendsService{
 	public Friends confirmFriendship(Long friendsId) {
 		// TODO Auto-generated method stub
 		Friends f = friendsRepository.findOne(friendsId);
+		if(f == null) throw new ExpiredRequestException("Request cancelled");
 		f.setConfirmedFriendship(true);
 		return friendsRepository.save(f);
 	}
@@ -74,6 +76,33 @@ public class FriendsServiceImpl implements FriendsService{
 	@Override
 	public void declineFriendRequest(Long id) {
 		friendsRepository.delete(id);
-		
 	}
+
+	@Override
+	public List<Guest> searchUsersFriends(Long id, String condition) {
+
+		ArrayList<Friends> f = new ArrayList<>( friendsRepository.findUsersFriends(id,condition));
+		ArrayList<Guest> friends = new ArrayList<>();
+		for(Friends ff : f){
+			if(ff.getRequestResponder().getId().equals(id)){
+				friends.add(ff.getRequestSender());
+			}
+			else{
+				friends.add(ff.getRequestResponder());
+			}
+		}
+		return friends;
+	}
+
+	@Override
+	public List<Friends> searchFriendRequests(Long id, String condition) {
+
+		String conditions [] =condition.split(" ");
+		
+		if(conditions.length == 1)
+			return friendsRepository.findUserFriendRequests(id, condition+"%");
+		else
+			return new ArrayList<Friends>();
+	}
+	
 }
