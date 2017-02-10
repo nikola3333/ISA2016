@@ -73,7 +73,7 @@ public class GuestController {
 	@RequestMapping(value = "/none/{condition}",method = RequestMethod.GET)
 	public List<Guest> searchNoneFriends(@PathVariable String condition){
 		Guest g = (Guest) session.getAttribute("user");
-		return guestService.findNoneFriends(g.getId(), condition);//dsa
+		return guestService.findNoneFriends(g.getId(), condition);
 	}
 	
 
