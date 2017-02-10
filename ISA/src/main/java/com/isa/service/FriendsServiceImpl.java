@@ -75,6 +75,7 @@ public class FriendsServiceImpl implements FriendsService{
 
 	@Override
 	public void declineFriendRequest(Long id) {
+		if(friendsRepository.findOne(id) == null) throw new IllegalArgumentException("Friendship doesn't exist");
 		friendsRepository.delete(id);
 	}
 
