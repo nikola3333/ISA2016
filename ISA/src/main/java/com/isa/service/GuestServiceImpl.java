@@ -76,8 +76,14 @@ public class GuestServiceImpl implements GuestService {
 
 	@Override
 	public List<Guest> findNoneFriends(Long id,String condition) {
-
-		ArrayList<Guest> noneFriends = new ArrayList<Guest>(guestRepository.findNoneFriends(id, condition+"%"));
+		ArrayList<Guest> noneFriends = null;
+		String splitted [] ;
+		splitted = condition.split(" ");
+		if(splitted.length == 2){
+			noneFriends = new ArrayList<Guest>(guestRepository.findNoneFriends( splitted[0]+"%",splitted[1] + "%",id));
+		}else{
+			noneFriends = new ArrayList<Guest>(guestRepository.findNoneFriends(id, condition+"%"));
+		}
 		Guest loggedUser = null;
 		for(Guest g : noneFriends){
 			if(g.getId().equals(id)){
@@ -87,5 +93,5 @@ public class GuestServiceImpl implements GuestService {
 		noneFriends.remove(loggedUser);
 		return noneFriends;
 	}
-
+	
 }

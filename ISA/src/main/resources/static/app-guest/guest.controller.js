@@ -30,6 +30,7 @@
 		vm.updateAccount = updateAccount;
 		vm.saveChanges = saveChanges;
 		vm.getLoggedUser = getLoggedUser;
+		vm.logout = logout;
 		//vm.getNoneFriends = getNoneFriends;
 		//vm.getFriends = getFriends;
 		//vm.getFriendRequests = getFriendRequests;
@@ -48,12 +49,22 @@
 			.then(function(user){
 				vm.loggedUser = user.data;
 				vm.update = false;
-			},function(erorrResponse){
+			},function(httpData){
 				vm.loggedUser = undefined;
 				console.log(httpData.message);
 			});
 		}		
-		
+		function logout(){
+			GuestService.logout()
+			.then(function(data){
+				$rootScope.globals.currentUser = [];
+				$location.path('/')
+			},
+			function(httpData){
+				console.log(httpData.message);
+				
+			})
+		}
 		function showRestaurants(){
 			vm.restaurantsSelected = true;
 			vm.friendsSelected = false;
@@ -63,20 +74,23 @@
 		function showFriends(){
 			vm.restaurantsSelected = false;
 			vm.friendsSelected = true;
-			vm.profileSelected = false;			
+			vm.profileSelected = false;
+        	$location.path('/homePage/friends');
 		}
 		
 		function showProfile(){
 			vm.restaurantsSelected = false;
 			vm.friendsSelected = false;
-			vm.profileSelected = true;			
+			vm.profileSelected = true;		
+        	$location.path('/homePage/profile');
+
 		}
 		
 		function showSelectedPerson(person){
 			vm.selectedPerson = person;
 		}
 		
-		
+			
 		function showSelectedPersonRequest(index){
 			if(vm.friendRequests[index].requestSender.id == vm.loggedUser.id)
 				vm.selectedPerson = vm.friendRequests[index].requestResponder;

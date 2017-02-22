@@ -15,9 +15,18 @@
 			controller : 'GuestController',
 			controllerAs : 'vm'
 		})
+		.when('/homePage/friends',{
+			templateUrl : 'app-guest/guest.view.friends.html',			
+			controller : 'GuestController',
+			controllerAs : 'vm'
+		})
+		.when('/homePage/profile',{
+			templateUrl : 'app-guest/guest.view.profile.html',			
+			controller : 'GuestController',
+			controllerAs : 'vm'
+		})
 		.when('/abc',{
 			templateUrl : 'abc.html',			
-
 		})		
 		.when('/',{
 			templateUrl:'login/login.view.html',			

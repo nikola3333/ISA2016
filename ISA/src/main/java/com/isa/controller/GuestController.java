@@ -69,6 +69,10 @@ public class GuestController {
 		Guest g = (Guest)session.getAttribute("user");
 		return guestService.findByEmail(g.getEmail());
 	}
+	@RequestMapping(value = "/user", method = RequestMethod.DELETE)
+	public void logout(){
+		session.invalidate();
+	}
 	
 	@RequestMapping(value = "/none/{condition}",method = RequestMethod.GET)
 	public List<Guest> searchNoneFriends(@PathVariable String condition){

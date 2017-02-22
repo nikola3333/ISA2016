@@ -25,6 +25,14 @@ public interface FriendsRepository extends CrudRepository<Friends, Long>{
 			+ "and (f.requestSender.firstName like :condition or f.requestResponder.firstName like :condition or f.requestSender.lastName like :condition or f.requestResponder.lastName like :condition)"
 			+ "and f.confirmedFriendship = 1")
 	public List<Friends> findUsersFriends(@Param("id")Long id,@Param("condition") String condition);
+
+	@Query("select f from Friends f where (f.requestSender.id = :id or f.requestResponder.id = :id)"
+			+ "and (((f.requestSender.firstName like :condition1 and  f.requestSender.lastName like :condition2)  or"
+			+ " (f.requestResponder.firstName like :condition1 and f.requestResponder.lastName like :condition2))or"
+			+ " ((f.requestSender.firstName like :condition2 and f.requestSender.lastName like :condition1) or"
+			+ " (f.requestResponder.firstName like :condition2 and f.requestResponder.lastName like :condition1)))"
+			+ "and f.confirmedFriendship = 1")
+	public List<Friends> findUsersFriends(@Param("condition1") String condition1,@Param("condition2") String condition2,@Param("id")Long id);
 	
 	
 	@Query("select f from Friends f where (f.requestSender.id = :id or f.requestResponder.id = :id)"
@@ -32,14 +40,16 @@ public interface FriendsRepository extends CrudRepository<Friends, Long>{
 			+ "and f.confirmedFriendship = 0")
 	public List<Friends> findUserFriendRequests(@Param("id")Long id,@Param("condition")String condition);
 	
+	@Query("select f from Friends f where (f.requestSender.id = :id or f.requestResponder.id = :id)"
+			+ "and (((f.requestSender.firstName like :condition1 and  f.requestSender.lastName like :condition2)  or"
+			+ " (f.requestResponder.firstName like :condition1 and f.requestResponder.lastName like :condition2))or"
+			+ " ((f.requestSender.firstName like :condition2 and f.requestSender.lastName like :condition1) or"
+			+ " (f.requestResponder.firstName like :condition2 and f.requestResponder.lastName like :condition1)))"
+			+ "and f.confirmedFriendship = 0")
+	public List<Friends>findUserFriendRequests(@Param("condition1") String condition1,@Param("condition2") String condition2,@Param("id")Long id);
 	
 	
 }
 
 
 
-/*	@Query("select f from Friends f where (f.requestSender in (select g.id from Guest g where g.email = :email) or f.requestResponder in (select g.id from Guest g where g.email = :email))"
-+ "and f.confirmedFriendship = 1")*/	
-//	@Query("select f from Friends f where (f.requestSender in (select g from Guest g where g.id = :senderId) and f.requestResponder in(select g from Guest g where g.id = :receiverId)) or (f.requestSender in(select g from Guest g where g.id = :receiverId) and f.requestResponder in(select g from Guest g where g.id = :senderId))")
-/*@Query("select f from Friends f where (f.requestSender in (select g from Guest g where g.email = :email) or f.requestResponder in (select g from Guest g where g.email = :email))"
-		+ "and f.confirmedFriendship = 0")*/

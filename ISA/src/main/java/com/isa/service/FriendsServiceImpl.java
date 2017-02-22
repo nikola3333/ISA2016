@@ -81,8 +81,14 @@ public class FriendsServiceImpl implements FriendsService{
 
 	@Override
 	public List<Guest> searchUsersFriends(Long id, String condition) {
-
-		ArrayList<Friends> f = new ArrayList<>( friendsRepository.findUsersFriends(id,condition));
+		ArrayList<Friends> f =null;
+		String splitted [];
+		splitted = condition.split(" ");
+		if(splitted.length == 2){
+			 f = new ArrayList<>( friendsRepository.findUsersFriends(splitted[0]+ "%",splitted[1]+"%",id));
+		}else{
+			 f = new ArrayList<>( friendsRepository.findUsersFriends(id,condition));
+		}
 		ArrayList<Guest> friends = new ArrayList<>();
 		for(Friends ff : f){
 			if(ff.getRequestResponder().getId().equals(id)){
@@ -98,12 +104,12 @@ public class FriendsServiceImpl implements FriendsService{
 	@Override
 	public List<Friends> searchFriendRequests(Long id, String condition) {
 
-		String conditions [] =condition.split(" ");
+		String splitted [] =condition.split(" ");
 		
-		if(conditions.length == 1)
-			return friendsRepository.findUserFriendRequests(id, condition+"%");
+		if(splitted.length == 2)
+			return friendsRepository.findUserFriendRequests(splitted[0]+ "%",splitted[1]+"%",id);
 		else
-			return new ArrayList<Friends>();
-	}
+			return friendsRepository.findUserFriendRequests(id, condition+"%");
+		}
 	
 }

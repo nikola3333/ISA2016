@@ -11,6 +11,7 @@
 		
 		var service = {};
 		service.getLoggedUser = getLoggedUser;
+		service.logout = logout;
 		service.updateGuest = updateGuest;
 		//service.getNoneFriends = getNoneFriends;
 		//service.getFriends = getFriends;
@@ -26,6 +27,10 @@
 		
 		function getLoggedUser(){
             return $http.get('/guests/user');
+		}
+		
+		function logout(){
+			return $http.delete('/guests/user');
 		}
 		
 		function updateGuest(user){
