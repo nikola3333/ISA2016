@@ -20,6 +20,8 @@
 		vm.friends = [];
 		vm.friendRequests = [];
 		vm.searchCondition = "";
+		vm.restaurants = [];
+		vm.selectedRestaurant = undefined;
 		
 		vm.showRestaurants = showRestaurants;
 		vm.showFriends = showFriends;
@@ -34,13 +36,17 @@
 		//vm.getNoneFriends = getNoneFriends;
 		//vm.getFriends = getFriends;
 		//vm.getFriendRequests = getFriendRequests;
+	//friends
 		vm.removeFromFriendsList = removeFromFriendsList;
 		vm.acceptFriendRequest = acceptFriendRequest;
 		vm.declineFriendRequest = declineFriendRequest;
 		vm.searchNoneFriends = searchNoneFriends;
 		vm.searchFriends = searchFriends;
 		vm.searchFriendRequests = searchFriendRequests;
-		vm.getLoggedUser();
+	//restaurants
+		vm.getAllRestaurants = getAllRestaurants;
+		vm.setSelectedRestaurant = setSelectedRestaurant;
+ 		vm.getLoggedUser();
 		
 		
 		//nalazim logovanog gosta
@@ -69,6 +75,8 @@
 			vm.restaurantsSelected = true;
 			vm.friendsSelected = false;
 			vm.profileSelected = false;
+        	$location.path('/homePage/restaurants');
+
 		}
 		
 		function showFriends(){
@@ -239,6 +247,19 @@
 			function(httpData){
 				console.log(httpData.data.message);
 			})
+		}
+		
+		function getAllRestaurants(){
+			GuestService.getAllRestaurants()
+			.then(function(httpData){
+				vm.restaurants = httpData.data;
+			},
+			function(httpData){
+				console.log(httpData.data.message);
+			})
+		}
+		function setSelectedRestaurant(index){
+			vm.selectedRestaurant = vm.restaurants[index];
 		}
 	}
 })();

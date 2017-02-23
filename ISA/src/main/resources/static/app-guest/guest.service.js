@@ -23,6 +23,7 @@
 		service.searchNoneFriends = searchNoneFriends;
 		service.searchFriends = searchFriends;
 		service.searchFriendRequests = searchFriendRequests;
+		service.getAllRestaurants = getAllRestaurants;
 		return service;
 		
 		function getLoggedUser(){
@@ -75,5 +76,9 @@
 		function searchFriendRequests(condition){
 			return $http.get("/friends/requests/"+condition);
 		}
+		function getAllRestaurants(){
+			return $http.get('/restaurants');
+		}
+		
 	}
 })();
