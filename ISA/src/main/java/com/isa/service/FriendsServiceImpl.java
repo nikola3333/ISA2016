@@ -1,6 +1,7 @@
 package com.isa.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ public class FriendsServiceImpl implements FriendsService{
 				friends.add(ff.getRequestResponder());
 			}
 		}
-		return friends;
+		return sortGuest(friends);
 	}
 
 	@Override
@@ -68,9 +69,9 @@ public class FriendsServiceImpl implements FriendsService{
 	}
 
 	@Override
-	public List<Friends> getFriendRequests(String email) {
+	public List<Friends> getFriendRequests(String email,Long id) {
 		// TODO Auto-generated method stub
-		return friendsRepository.findUserFriendRequests(email);
+		return sortFriendRequests((ArrayList<Friends>) friendsRepository.findUserFriendRequests(email),id);
 	}
 
 	@Override
@@ -87,7 +88,7 @@ public class FriendsServiceImpl implements FriendsService{
 		if(splitted.length == 2){
 			 f = new ArrayList<>( friendsRepository.findUsersFriends(splitted[0]+ "%",splitted[1]+"%",id));
 		}else{
-			 f = new ArrayList<>( friendsRepository.findUsersFriends(id,condition));
+			 f = new ArrayList<>( friendsRepository.findUsersFriends(id,condition+"%"));
 		}
 		ArrayList<Guest> friends = new ArrayList<>();
 		for(Friends ff : f){
@@ -98,7 +99,7 @@ public class FriendsServiceImpl implements FriendsService{
 				friends.add(ff.getRequestResponder());
 			}
 		}
-		return friends;
+		return sortGuest(friends);
 	}
 
 	@Override
@@ -107,9 +108,46 @@ public class FriendsServiceImpl implements FriendsService{
 		String splitted [] =condition.split(" ");
 		
 		if(splitted.length == 2)
-			return friendsRepository.findUserFriendRequests(splitted[0]+ "%",splitted[1]+"%",id);
+			return sortFriendRequests((ArrayList<Friends>) friendsRepository.findUserFriendRequests(splitted[0]+ "%",splitted[1]+"%",id),id);
 		else
-			return friendsRepository.findUserFriendRequests(id, condition+"%");
+			return  sortFriendRequests((ArrayList<Friends>) friendsRepository.findUserFriendRequests(id, condition+"%"),id);
 		}
 	
+	public List<Guest> sortGuest(ArrayList<Guest> guests){
+		for(int i = 0 ; i < guests.size(); i ++){
+			for(int j = i+1 ; j< guests.size();j++){
+				 if(guests.get(i).getFirstName().compareToIgnoreCase(guests.get(j).getFirstName()) > 0){
+					 Collections.swap(guests, i, j);
+				 }
+			}
+		}
+		return guests;
+	}
+
+	public List<Friends> sortFriendRequests(ArrayList<Friends> friends,Long id){
+
+		for(int i = 0 ; i < friends.size(); i++){
+
+			for(int j = i+1 ; j < friends.size();j++){
+				Guest friend1 = null;
+				Guest friend2 = null;
+				if(friends.get(i).getRequestSender().getId() != id){
+					friend1 = friends.get(i).getRequestSender();
+				}
+				else{
+					friend1 = friends.get(i).getRequestResponder();
+				}
+				if(friends.get(j).getRequestSender().getId() != id){
+					friend2 = friends.get(j).getRequestSender();
+				}
+				else{
+					friend2 = friends.get(j).getRequestResponder();
+				}
+				if(friend1.getFirstName().compareToIgnoreCase(friend2.getFirstName()) > 0){
+					Collections.swap(friends, i, j);
+				}
+			}
+		}
+		return friends;
+	}
 }

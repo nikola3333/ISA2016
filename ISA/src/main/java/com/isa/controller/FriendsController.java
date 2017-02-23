@@ -60,7 +60,7 @@ public class FriendsController {
 	@RequestMapping(value = "/requests", method = RequestMethod.GET)
 	public List<Friends> getFriendRequests(){
 		Guest g = (Guest) session.getAttribute("user");
-		return friendsService.getFriendRequests(g.getEmail());
+		return friendsService.getFriendRequests(g.getEmail(),g.getId());
 	}
 	
 	@RequestMapping(value = "/{condition}",method = RequestMethod.GET)

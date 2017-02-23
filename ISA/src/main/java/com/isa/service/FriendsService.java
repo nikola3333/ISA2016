@@ -13,7 +13,7 @@ public interface FriendsService {
 	public void removeFromFriendsList(Long id,Long friendId);
 	public void declineFriendRequest(Long id);
 	
-	public List<Friends> getFriendRequests(String email);
+	public List<Friends> getFriendRequests(String email,Long id);
 	public List<Guest> searchUsersFriends(Long id,String condition);
 	public List<Friends> searchFriendRequests(Long id,String condition);
 }
