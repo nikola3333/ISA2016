@@ -31,12 +31,12 @@
 			controllerAs : 'vm'
 		})
 		.when('/manager',{
-			templateUrl : 'manager.html',			
-		})		
-		
+			templateUrl : 'rest-man/manager.html',			
+		})	
 		.when('/sys_manager',{
 			templateUrl : 'sys-man/systemManager.html',			
-		})			
+		})	
+					
 		.when('/',{
 			templateUrl:'login/login.view.html',			
 			controller:'LoginController',
@@ -45,6 +45,12 @@
 		.when('/register',{
 			templateUrl : 'register/register.view.html',
 			controller :'RegisterController',
+			controllerAs :'vm'
+		})
+		
+		.when('/registerManager',{
+			templateUrl : 'sys-man/registerManager.html',
+			controller :'RegisterManControler',
 			controllerAs :'vm'
 		})
 		.otherwise({redirectTo:'/#'})

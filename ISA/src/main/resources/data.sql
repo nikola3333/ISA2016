@@ -51,9 +51,9 @@ insert into cook(user_id) values(14);
 
 
 insert into user(email,first_name,last_name,password,role) values('manag1@rest.com','Miljenko','Miljenkovic','123',6);
-insert into restauran_manager(user_id) values(15);
+insert into restauran_manager(confirmed_registration,user_id) values(1,15);
 insert into user(email,first_name,last_name,password,role) values('manag2@rest.com','Vojislav','Seselj','123',6);
-insert into restauran_manager(user_id) values(16);
+insert into restauran_manager(confirmed_registration,user_id) values(1,16);
 
 insert into user(email,first_name,last_name,password,role) values('seller1@rest.com','Nikola','Smiljanic','456',7);
 insert into seller(user_id) values(17);
