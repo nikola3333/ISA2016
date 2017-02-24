@@ -53,6 +53,11 @@
 			controller :'RegisterManControler',
 			controllerAs :'vm'
 		})
+		.when('/reservation',{
+			templateUrl : 'app-reservation/reservation.view.html',
+			controller :'ReservationController',
+			controllerAs :'vm'
+		})
 		.otherwise({redirectTo:'/#'})
 	}
 

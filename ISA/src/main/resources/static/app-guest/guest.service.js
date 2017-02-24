@@ -25,6 +25,7 @@
 		service.searchFriendRequests = searchFriendRequests;
 		service.getAllRestaurants = getAllRestaurants;
 		service.searchRestaurants = searchRestaurants;
+		service.addRestaurantToSession = addRestaurantToSession;
 		return service;
 		
 		function getLoggedUser(){
@@ -82,6 +83,9 @@
 		}
 		function searchRestaurants(condition,sortCriteria){
 			return $http.get('/restaurants/find/'+sortCriteria+'/'+condition)
+		}
+		function addRestaurantToSession(id){
+			return $http.post('/restaurants/session/'+id);
 		}
 	}
 })();

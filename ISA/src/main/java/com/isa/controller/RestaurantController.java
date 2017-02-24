@@ -2,6 +2,8 @@ package com.isa.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +20,8 @@ public class RestaurantController {
 
 	@Autowired
 	private RestaurantService restaurantService;
-	
+	@Autowired
+	HttpSession session;
 	@RequestMapping(value = "/find/{sortCriteria}",method = RequestMethod.GET)
 	public List<Restaurant> findAll(@PathVariable String sortCriteria){
 		return restaurantService.findAllSortedBy(sortCriteria);
@@ -42,5 +45,19 @@ public class RestaurantController {
 	@RequestMapping(value = "/find/{sortCriteria}/{condition}",method = RequestMethod.GET)
 	public List<Restaurant> findByCondition0(@PathVariable String sortCriteria,@PathVariable String condition){
 		return restaurantService.findByCondition(condition,sortCriteria);
+	}
+	
+	@RequestMapping(value = "/session/{id}", method = RequestMethod.POST)
+	public void addToSession(@PathVariable Long id){
+		session.setAttribute("restaurant", id);
+	}
+	
+	@RequestMapping(value = "/session", method = RequestMethod.GET)
+	public Restaurant getFromSession(){
+		Long id =(Long) session.getAttribute("restaurant");
+		if(id != null)
+			return restaurantService.findOne(id);
+		else 
+			return null;
 	}
 }
