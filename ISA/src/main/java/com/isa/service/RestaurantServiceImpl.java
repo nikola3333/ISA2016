@@ -18,9 +18,12 @@ public class RestaurantServiceImpl implements RestaurantService{
 	private RestaurantRepository restaurantRepository;
 
 	@Override
-	public List<Restaurant> findAll() {
+	public List<Restaurant> findAllSortedBy(String sortCriteria) {
 		// TODO Auto-generated method stub
-		return (List<Restaurant>) restaurantRepository.findAll();
+		if(sortCriteria.equals("Type"))
+			return (List<Restaurant>) restaurantRepository.findAllSortedByT();
+		return (List<Restaurant>) restaurantRepository.findAllSortedByN();
+	
 	}
 
 	@Override
@@ -39,6 +42,13 @@ public class RestaurantServiceImpl implements RestaurantService{
 	public void delete(Restaurant r) {
 		// TODO Auto-generated method stub
 		restaurantRepository.delete(r);
+	}
+
+	@Override
+	public List<Restaurant> findByCondition(String condition,String sortCriteria) {
+		if(sortCriteria.equals("Type"))
+			return restaurantRepository.findByConditionT(condition+"%");
+		return restaurantRepository.findByConditionN(condition+"%");
 	}
 	
 	

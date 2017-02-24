@@ -17,7 +17,7 @@ public class Restaurant {
 
 	private Long id;
 	private String name;
-	private String typeOfRestaurants;
+	private String typeOfRestaurant;
 	private List<Region> regions;
 
 	public Restaurant() {
@@ -26,10 +26,10 @@ public class Restaurant {
 
 
 
-	public Restaurant(Long id, String typeOfRestaurants,String name) {
+	public Restaurant(Long id, String typeOfRestaurant,String name) {
 		super();
 		this.id = id;
-		this.typeOfRestaurants = typeOfRestaurants;
+		this.typeOfRestaurant = typeOfRestaurant;
 		this.name = name;
 	}
 
@@ -62,12 +62,12 @@ public class Restaurant {
 	}
 
 	
-	public String getTypeOfRestaurants() {
-		return typeOfRestaurants;
+	public String getTypeOfRestaurant() {
+		return typeOfRestaurant;
 	}
 
-	public void setTypeOfRestaurants(String typeOfRestaurants) {
-		this.typeOfRestaurants = typeOfRestaurants;
+	public void setTypeOfRestaurant(String typeOfRestaurant) {
+		this.typeOfRestaurant = typeOfRestaurant;
 	}
 
 

@@ -22,6 +22,10 @@
 		vm.searchCondition = "";
 		vm.restaurants = [];
 		vm.selectedRestaurant = undefined;
+		vm.selectedRestaurantIndex = undefined;
+		vm.searchRestaurantsCondition = "";
+		vm.criterias = [{id : "1", name : "Sort by"},{id:"2",name:"Name"},{id:"3",name:"Type"}]
+		vm.sortRestaurantsCriteria = {id : "1", name : "Sort by"}
 		
 		vm.showRestaurants = showRestaurants;
 		vm.showFriends = showFriends;
@@ -46,6 +50,8 @@
 	//restaurants
 		vm.getAllRestaurants = getAllRestaurants;
 		vm.setSelectedRestaurant = setSelectedRestaurant;
+		vm.searchRestaurants = searchRestaurants;
+		vm.sortCriteriaChanged = sortCriteriaChanged;
  		vm.getLoggedUser();
 		
 		
@@ -250,7 +256,7 @@
 		}
 		
 		function getAllRestaurants(){
-			GuestService.getAllRestaurants()
+			GuestService.getAllRestaurants(vm.sortRestaurantsCriteria.name)
 			.then(function(httpData){
 				vm.restaurants = httpData.data;
 			},
@@ -260,6 +266,24 @@
 		}
 		function setSelectedRestaurant(index){
 			vm.selectedRestaurant = vm.restaurants[index];
+			vm.selectedRestaurantIndex = index;			
+		}
+		function searchRestaurants(){
+			if(vm.searchRestaurantsCondition.trim() != "")
+				GuestService.searchRestaurants(vm.searchRestaurantsCondition,vm.sortRestaurantsCriteria.name)
+				.then(function(httpData){
+					vm.restaurants = httpData.data;
+				},
+				function(httpData){
+					console.log(httpData.data.message);
+				})
+			else{
+				vm.getAllRestaurants();
+			}
+		}
+		function sortCriteriaChanged(value){
+			vm.sortRestaurantsCriteria = value;
+			searchRestaurants();
 		}
 	}
 })();

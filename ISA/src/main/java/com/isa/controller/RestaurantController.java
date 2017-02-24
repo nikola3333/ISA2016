@@ -19,9 +19,9 @@ public class RestaurantController {
 	@Autowired
 	private RestaurantService restaurantService;
 	
-	@RequestMapping(method = RequestMethod.GET)
-	public List<Restaurant> findAll(){
-		return restaurantService.findAll();
+	@RequestMapping(value = "/find/{sortCriteria}",method = RequestMethod.GET)
+	public List<Restaurant> findAll(@PathVariable String sortCriteria){
+		return restaurantService.findAllSortedBy(sortCriteria);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -37,5 +37,10 @@ public class RestaurantController {
 	@RequestMapping(method = RequestMethod.DELETE)
 	public void delete(@RequestBody Restaurant r){
 		restaurantService.delete(r);
+	}
+	
+	@RequestMapping(value = "/find/{sortCriteria}/{condition}",method = RequestMethod.GET)
+	public List<Restaurant> findByCondition0(@PathVariable String sortCriteria,@PathVariable String condition){
+		return restaurantService.findByCondition(condition,sortCriteria);
 	}
 }

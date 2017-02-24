@@ -24,6 +24,7 @@
 		service.searchFriends = searchFriends;
 		service.searchFriendRequests = searchFriendRequests;
 		service.getAllRestaurants = getAllRestaurants;
+		service.searchRestaurants = searchRestaurants;
 		return service;
 		
 		function getLoggedUser(){
@@ -76,9 +77,11 @@
 		function searchFriendRequests(condition){
 			return $http.get("/friends/requests/"+condition);
 		}
-		function getAllRestaurants(){
-			return $http.get('/restaurants');
+		function getAllRestaurants(sortCriteria){
+			return $http.get('/restaurants/find/'+sortCriteria);
 		}
-		
+		function searchRestaurants(condition,sortCriteria){
+			return $http.get('/restaurants/find/'+sortCriteria+'/'+condition)
+		}
 	}
 })();
