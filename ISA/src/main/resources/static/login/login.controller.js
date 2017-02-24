@@ -27,8 +27,12 @@
                     	$location.path('/homePage');
                     }
                     if(response.data.role.name == "RESTAURAN_MANAGER"){
-                    	$location.path('/abc')
+                    	$location.path('/manager')
                     }
+
+                    if(response.data.role.name == "SYSTEM_MANAGER"){
+                        $location.path('/sys_manager');
+                           }
                 }
                 else {
                 	vm.errorMessage = response.data.message;
