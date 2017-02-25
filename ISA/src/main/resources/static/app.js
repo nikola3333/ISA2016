@@ -36,9 +36,18 @@
 		.when('/waiter',{
 			templateUrl : 'waiter/waiter.html',			
 		})
+		.when('/bartender',{
+			templateUrl : 'bartender/bartender.html',			
+		})
+		
 		.when('/registerWaiter',{
 			templateUrl : 'rest-man/registerWaiter.html',
 			controller : 'RegisterWaiterController',
+			controllerAs : 'vm'
+		})
+		.when('/registerBartender',{
+			templateUrl : 'rest-man/registerBartender.html',
+			controller : 'RegisterBartenderController',
 			controllerAs : 'vm'
 		})
 		.when('/sys_manager',{
