@@ -61,7 +61,7 @@
 			controller :'RegisterManControler',
 			controllerAs :'vm'
 		})
-<<<<<<< HEAD
+
 		.when('/registerSysManager',{
 			templateUrl : 'sys-man/registerSysManager.html',
 			controller :'RegisterSysControler',
@@ -72,8 +72,7 @@
 			controller :'RegisterResControler',
 			controllerAs :'vm'
 		})
-=======
->>>>>>> d3ab6ffacfb3d335f2c6fca13e3aea717b0618a8
+
 		.when('/reservation',{
 			templateUrl : 'app-reservation/reservation.view.html',
 			controller :'ReservationController',
