@@ -15,7 +15,7 @@
 		    		<div class="form-group">
 		        		<label for = "startDate">Select date and time of reservation: </label>
 		            	<div class='input-group date' id='datetimepicker1' >
-		            		<input type='text' class="form-control" id = "startDate" date-time ng-model="$parent.reservationDate"/>
+		            		<input type='text' class="form-control" id = "startDate" date-time ng-model="$parent.reservationDate" />
 		        			<span class="input-group-addon">
 		            			<span class="glyphicon glyphicon-calendar"></span>
 		              		</span>
@@ -23,13 +23,12 @@
 		   			</div>
 				</div>
 			</div>
-			 {{vm.reservationDate}}
 			<div class="row">
 				<div class='col-sm-6 '>
 					<div class="form-group">
 						<label for = "startDate">Maximum stay until: </label>
 				    	<div class='input-group date' id='datetimepicker3'>
-				        	<input type='text' class="form-control" />
+				        	<input type='text' class="form-control" ng-disabled = "!vm.reservedTimeSelected"/>
 				            <span class="input-group-addon">
 				         		<span class="glyphicon glyphicon-time"></span>
 				         	</span>
@@ -39,20 +38,23 @@
 			</div>
 			<div class = "row">
 				<div class='col-sm-6 col-sm-offset-4'>
-					<button class = 'btn btn-default'>Show available tables</button>
+					<button class = 'btn btn-default' ng-click = "vm.showTables()" ng-disabled = "!vm.reservedTimeSelected && !vm.staySelected">Show available tables</button>
 				</div>
 			</div>
         </div>
 	</div>
 	
 	<div>
-		<div class = "row" >
+		<div class = "row" ng-if = "vm.tableView">
 			<div  style="border:1px solid #cecece" class = "col-sm-8 col-sm-offset-1" ng-repeat = "region in vm.selectedRestaurant.regions">
 				<h4 style = "height:30px">{{region.name}}</h4>
 				<div class='row' ng-show = "vm.rowCheckNumberOfTables($parent.$index,n)" style = "height:100px" ng-repeat = "n in vm.getNumber(region.rowNum)">
 					<span class='col-sm-1' style = "width:70px" ng-repeat = "b in vm.getNumber(region.colNum)">
-						<button ng-click = "vm.addToSelected($parent.$parent.$index,$parent.$index+1,$index+1)" ng-disabled = "vm.checkIfAdded($parent.$parent.$index,$parent.$index+1,$index+1)"
-						 ng-show = "vm.getTableOznaka($parent.$parent.$index,$parent.$index+1,$index+1)" class = 'btn btn-default'>
+						<button ng-click = "vm.addToSelected($parent.$parent.$index,$parent.$index+1,$index+1)"
+						 	ng-class = "{ 'btn-success': vm.checkIfAdded($parent.$parent.$index,$parent.$index+1,$index+1) }"
+						 	ng-show = "vm.getTableOznaka($parent.$parent.$index,$parent.$index+1,$index+1)" class = 'btn btn-default'
+						 	ng-init = "vm.checkIfReserved($parent.$parent.$index,$parent.$index+1,$index+1)"
+						 	ng-disabled = "vm.getStatus($parent.$parent.$index,$parent.$index+1,$index+1)">
 						{{vm.getTableOznaka($parent.$parent.$index,$parent.$index+1,$index+1)}}
 						</button>
 					</span>		
@@ -67,7 +69,7 @@
 					</tr>
 				</table>
 			</div>
-			&nbsp&nbsp<button ng-show = "vm.selectedTables.length > 0" class = 'btn btn-primary'>RESERVE</button>	
+			&nbsp&nbsp<button ng-show = "vm.selectedTables.length > 0" class = 'btn btn-success'>RESERVE</button>	
 		</div>
 	</div>
 </div>

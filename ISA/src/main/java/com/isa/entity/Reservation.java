@@ -19,19 +19,21 @@ public class Reservation {
 	private Restaurant restaurant;
 	private List<Guest> guests;
 	private Date date;
-	private Double stay;
+	private Date stay;
 	
 	
 	public Reservation() {
 		super();
 	}
 
-	public Reservation(Restaurant restaurant, Date date, Double stay) {
+
+	public Reservation(Restaurant restaurant, Date date, Date stay) {
 		super();
 		this.restaurant = restaurant;
 		this.date = date;
 		this.stay = stay;
 	}
+
 
 	@Id
 	@GeneratedValue(strategy =GenerationType.AUTO)
@@ -76,15 +78,13 @@ public class Reservation {
 		this.date = date;
 	}
 
-	public Double getStay() {
+	public Date getStay() {
 		return stay;
 	}
 
-	public void setStay(Double stay) {
+	public void setStay(Date stay) {
 		this.stay = stay;
 	}
-	
-	
-	
-	
+
+
 }
