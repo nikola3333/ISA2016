@@ -52,6 +52,7 @@
 		vm.setSelectedRestaurant = setSelectedRestaurant;
 		vm.searchRestaurants = searchRestaurants;
 		vm.sortCriteriaChanged = sortCriteriaChanged;
+		vm.reserve = reserve;
  		vm.getLoggedUser();
 		
 		
@@ -284,6 +285,15 @@
 		function sortCriteriaChanged(value){
 			vm.sortRestaurantsCriteria = value;
 			searchRestaurants();
+		}
+		function reserve(){
+			GuestService.addRestaurantToSession(vm.selectedRestaurant.id)
+			.then(function(httpData){
+	        	$location.path('/reservation');
+			},
+			function(httpData){
+				console.log(httpData.data.message);
+			})
 		}
 	}
 })();

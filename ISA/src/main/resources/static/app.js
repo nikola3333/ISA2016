@@ -32,7 +32,15 @@
 		})
 		.when('/manager',{
 			templateUrl : 'rest-man/manager.html',			
-		})	
+		})
+		.when('/waiter',{
+			templateUrl : 'waiter/waiter.html',			
+		})
+		.when('/registerWaiter',{
+			templateUrl : 'rest-man/registerWaiter.html',
+			controller : 'RegisterWaiterController',
+			controllerAs : 'vm'
+		})
 		.when('/sys_manager',{
 			templateUrl : 'sys-man/systemManager.html',			
 		})	
@@ -51,6 +59,21 @@
 		.when('/registerManager',{
 			templateUrl : 'sys-man/registerManager.html',
 			controller :'RegisterManControler',
+			controllerAs :'vm'
+		})
+		.when('/registerSysManager',{
+			templateUrl : 'sys-man/registerSysManager.html',
+			controller :'RegisterSysControler',
+			controllerAs :'vm'
+		})
+		.when('/registerRestaurant',{
+			templateUrl : 'sys-man/registerRestaurant.html',
+			controller :'RegisterResControler',
+			controllerAs :'vm'
+		})
+		.when('/reservation',{
+			templateUrl : 'app-reservation/reservation.view.html',
+			controller :'ReservationController',
 			controllerAs :'vm'
 		})
 		.otherwise({redirectTo:'/#'})

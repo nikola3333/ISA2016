@@ -3,10 +3,10 @@
 
     angular
         .module('app')
-        .controller('RegisterManControler', RegisterManControler);
+        .controller('RegisterWaiterController',RegisterWaiterController);
     
-    RegisterManControler.$inject = ['RegisterManService','$location'];
-    function RegisterManControler(RegisterManService,$location) {
+    RegisterWaiterController.$inject = ['RegisterWaiterService','$location'];
+    function RegisterWaiterController(RegisterWaiterService,$location) {
         var vm = this;
         
         vm.register = register;
@@ -15,7 +15,7 @@
         vm.emailExist = false;
         
         function register(){
-        	RegisterManService.CreateManager(vm.user)
+        	RegisterWaiterService.CreateWaiter(vm.user)
         	.then(function(response){
         		alert("alert");
         	},
@@ -25,7 +25,7 @@
         }
         
         function checkIfEmailExist(){
-        	RegisterManService.CheckEmail(vm.user.email)
+        	RegisterWaiterService.CheckEmail(vm.user.email)
         	.then(
         			function(response){
         				if(reponse.data != null)

@@ -24,20 +24,6 @@ public class Guest extends User {
 		this.confirmedRegistration = confirmedRegistration;
 		//this.friends = new HashSet<Guest>();
 	}
-/*    @OneToMany
-    @JoinTable(
-        name="Friends",
-        joinColumns = @JoinColumn( name="id"),
-        inverseJoinColumns = @JoinColumn( name="friendId")
-    )
-	public Set<Guest> getFriends() {
-		return friends;
-	}*/
-
-/*	public void setFriends(Set<Guest> friends) {
-		this.friends = friends;
-	}*/
-
 
 	
 	

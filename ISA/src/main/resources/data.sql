@@ -26,11 +26,10 @@ insert into guest(confirmed_registration,user_id) values(1,6);
 
 
 
-
 insert into user(email,first_name,last_name,password,role)  values('efg@h.com','janko','jankovic','123',2);
-insert into waiter(user_id) values(7);
+insert into waiter(date_of_birth,dress_size,shoes_size,user_id) values('2/Jan/2016',6,44,7);
 insert into user(email,first_name,last_name,password,role)  values('122@22.com','marko','markovic','456',2);
-insert into waiter(user_id) values(8);
+insert into waiter(date_of_birth,dress_size,shoes_size,user_id) values('24/Feb/2011',7,43,8);
 
 
 insert into user(email,first_name,last_name,password,role) values('sys@man.com','scepan','scekic','123',3);

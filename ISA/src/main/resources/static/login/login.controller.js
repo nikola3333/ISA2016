@@ -26,6 +26,9 @@
                     if(response.data.role.name == "GUEST"){
                     	$location.path('/homePage');
                     }
+                    if(response.data.role.name == "WAITER"){
+                    	$location.path('/waiter');
+                    }
                     if(response.data.role.name == "RESTAURAN_MANAGER"){
                     	$location.path('/manager')
                     }
