@@ -64,7 +64,7 @@
 				vm.update = false;
 			},function(httpData){
 				vm.loggedUser = undefined;
-				console.log(httpData.message);
+				console.log(httpData.data.message);
 			});
 		}		
 		function logout(){
@@ -74,7 +74,7 @@
 				$location.path('/')
 			},
 			function(httpData){
-				console.log(httpData.message);
+				console.log(httpData.data.message);
 				
 			})
 		}

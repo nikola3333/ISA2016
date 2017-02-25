@@ -1,4 +1,3 @@
-
 (function(){
 	'use strict'
 	
@@ -10,9 +9,13 @@
 	
 	function ReservationService($http){
 		var service = {};
+		service.getSelectedRestaurant = getSelectedRestaurant;
 		
 		
 		return service;
+		
+		function getSelectedRestaurant(){
+			return $http.get('/restaurants/session');
+		}
 	}
-
 })();

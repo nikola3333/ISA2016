@@ -17,17 +17,24 @@ public class Table {
 	
 	private Long id;
 	private Integer oznakaStola;
+	private Integer colNum;
+	private Integer rowNum;
 	private List<Reservation> reservations;
+
 	
 	
 	public Table() {
 		super();
 	}
 
-	public Table(Integer oznakaStola) {
+
+	public Table(Integer oznakaStola, Integer colNum, Integer rowNum) {
 		super();
 		this.oznakaStola = oznakaStola;
+		this.colNum = colNum;
+		this.rowNum = rowNum;
 	}
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -60,6 +67,21 @@ public class Table {
 	public void setOznakaStola(Integer oznakaStola) {
 		this.oznakaStola = oznakaStola;
 	}
-	
-	
+
+	public Integer getColNum() {
+		return colNum;
+	}
+
+	public void setColNum(Integer colNum) {
+		this.colNum = colNum;
+	}
+
+	public Integer getRowNum() {
+		return rowNum;
+	}
+
+	public void setRowNum(Integer rowNum) {
+		this.rowNum = rowNum;
+	}
+
 }
