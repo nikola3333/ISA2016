@@ -6,7 +6,7 @@ import com.isa.entity.Waiter;
 
 public interface WaiterService {
 
-public List<Waiter> findAll();
+	public List<Waiter> findAll();
 	
 	public Waiter findByEmail(String email);
 	

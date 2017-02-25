@@ -44,9 +44,9 @@ insert into bartender(date_of_birth,dress_size,shoes_size,user_id) values('11/No
 
 
 insert into user(email,first_name,last_name,password,role) values('cook@1.com','Dzejmi','Oliver','111',5);
-insert into cook(user_id) values(13);
+insert into cook(date_of_birth,dress_size,shoes_size,user_id) values('1/Mar/1989',2,55,13);
 insert into user(email,first_name,last_name,password,role) values('cook@2.com','Petar','Petrovic','222',5);
-insert into cook(user_id) values(14);
+insert into cook(date_of_birth,dress_size,shoes_size,user_id) values('6/Mar/1989',3,45,14);
 
 
 insert into user(email,first_name,last_name,password,role) values('manag1@rest.com','Miljenko','Miljenkovic','123',6);
