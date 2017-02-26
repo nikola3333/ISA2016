@@ -45,4 +45,17 @@ public class ReservationServiceImpl implements ReservationService{
 		reservationRepository.delete(r);
 	}
 
+	@Override
+	public Reservation addToInvited(Long reservationId, Guest g) {
+		//int i = 0;
+		Reservation r = reservationRepository.findOne(reservationId);
+		
+		if(r.getInvitedFriends() == null)
+			r.setInvitedFriends(new ArrayList<Guest>());
+		if(r.getInvitedFriends().size() == r.getSeatNum()-1 ) throw new IllegalArgumentException("Can't invite more friends");
+		r.getInvitedFriends().add(g);
+
+		return reservationRepository.save(r);
+	}
+
 }

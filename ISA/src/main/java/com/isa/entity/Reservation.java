@@ -22,18 +22,20 @@ public class Reservation {
 	private List<Guest> guests;
 	private Date date;
 	private Date stay;
-	
+	private List<Guest> invitedFriends;
+	private Integer seatNum;
 	
 	public Reservation() {
 		super();
 	}
 
 
-	public Reservation(Restaurant restaurant, Date date, Date stay) {
+	public Reservation(Restaurant restaurant, Date date, Date stay,Integer seatNum) {
 		super();
 		this.restaurant = restaurant;
 		this.date = date;
 		this.stay = stay;
+		this.seatNum = seatNum;
 	}
 
 
@@ -89,5 +91,32 @@ public class Reservation {
 		this.stay = stay;
 	}
 
+	@ManyToMany
+	@JoinTable(name = "INVITED_FRIENDS",
+		joinColumns = 
+			@JoinColumn(name = "RESERVATION_ID"),
+		inverseJoinColumns =
+			@JoinColumn(name = "GUEST_ID")
+			)
+	public List<Guest> getInvitedFriends() {
+		return invitedFriends;
+	}
+
+	public void setInvitedFriends(List<Guest> invitedFriends) {
+		this.invitedFriends = invitedFriends;
+	}
+
+
+	public Integer getSeatNum() {
+		return seatNum;
+	}
+
+
+	public void setSeatNum(Integer seatNum) {
+		this.seatNum = seatNum;
+	}
+
+	
+	
 
 }

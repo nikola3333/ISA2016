@@ -11,4 +11,6 @@ public interface ReservationService {
 	public Reservation findOne(Long id);
 	public Reservation save(Reservation r,Guest g);
 	public void delete(Reservation r);
+	public Reservation addToInvited(Long reservationId, Guest g);
+
 }

@@ -21,7 +21,10 @@
 	    vm.reservation = $rootScope.reservation;
 		vm.friends = [];
 		vm.searchCondition;
-	    
+		vm.invitedFriends = [];
+		vm.confirmedInvitation = [];	
+		
+		vm.logout = logout;
 		vm.getNumber = getNumber;
 		vm.getTableOznaka = getTableOznaka;
 		vm.rowCheckNumberOfTables = rowCheckNumberOfTables;
@@ -36,7 +39,27 @@
 		vm.getDateFromReservation = getDateFromReservation;
 		vm.searchFriends = searchFriends;
 		vm.inviteFriend = inviteFriend;
+		vm.checkIfSendInvitation = checkIfSendInvitation;
+
 		
+		
+		function logout(){
+			GuestService.logout()
+			.then(function(data){
+				$rootScope.globals.currentUser = [];
+				$location.path('/')
+			},
+			function(httpData){
+				console.log(httpData.data.message);
+			})
+		}
+		
+		(function setInvitationFriends(){
+			if(vm.reservation != undefined){
+				vm.invitedFriends = vm.reservation.invitedFriends;
+				vm.confirmedInvitation = vm.reservation.guests;
+			}
+		})();
 		(function getSelectedRestaurant(){
 			ReservationService.getSelectedRestaurant()
 			.then(function(httpData){
@@ -212,11 +235,28 @@
 		function inviteFriend(index){
 			ReservationService.inviteFriend(vm.friends[index],vm.reservation.id)
 			.then(function(httpData){
-				
+				vm.reservation = httpData.data;
+				vm.invitedFriends = vm.reservation.invitedFriends;
+				vm.confirmedInvitation = vm.reservation.guests;
 			},
 			function(httpData){
 				console.log.httpData.data.message;
 			})
+		}
+		
+		function checkIfSendInvitation(index){
+			var friend = vm.friends[index];
+			if(vm.invitedFriends != null)
+				for(var i = 0; i < vm.invitedFriends.length;i++){
+					if(vm.invitedFriends[i].id == friend.id)
+						return false;
+				}
+			if(vm.confirmedInvitation != null)
+				for(var i = 0; i < vm.confirmedInvitation.length;i++){
+					if(vm.confirmedInvitation[i].id == friend.id)
+						return false;
+				}
+			return true;
 		}
 	}
 })();

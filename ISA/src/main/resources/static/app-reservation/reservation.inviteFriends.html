@@ -50,7 +50,17 @@
 						<p><b>Confirmed inivitation:</b></p>
 					</div>
 					<div  style= "min-height:80px" class = "col-sm-7 col-sm-offset-1">
-						<p><span ng-repeat = "friend in vm.reservation.guests"> {{friend.firstName friend.lastName}} </span></p>
+						<p><span ng-repeat = "friend in vm.confirmedInvitation"> {{friend.firstName}} {{friend.lastName}}; </span></p>
+					</div>
+				</div>
+			</div>
+			<div class = "row">
+				<div class = "col-sm-7 col-sm-offset-1">
+					<div class = "col-sm-3">
+						<p><b>Waiting on response:</b></p>
+					</div>
+					<div  style= "min-height:80px" class = "col-sm-7 col-sm-offset-1">
+						<p><span ng-repeat = "friend in vm.invitedFriends"> {{friend.firstName}} {{friend.lastName}}; </span></p>
 					</div>
 				</div>
 			</div>
@@ -65,7 +75,8 @@
 				<tr ng-repeat="friend in vm.friends" >
 					<td>{{friend.firstName}} {{friend.lastName}}</td>
 					<td class="text-right">
-						<button type="button" style = "width:150px" class="btn btn-success" ng-click="vm.inviteFriend($index)">Invite friend</button>
+						<button ng-show = "vm.checkIfSendInvitation($index)" type="button" style = "width:150px" class="btn btn-success" ng-click="vm.inviteFriend($index)">Invite friend</button>
+						<p style = "width:150px" ng-hide = "vm.checkIfSendInvitation($index)"></p>
 					</td>
 				</tr>
 			</table>

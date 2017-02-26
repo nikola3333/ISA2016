@@ -67,7 +67,12 @@ public class ReservationController {
 		Date reservationTime = (Date) session.getAttribute("reservationTime");
 		Date stayTime = (Date) session.getAttribute("stayTime");
 		
-		Reservation r = new Reservation(restaurant, reservationTime, stayTime);
+		Integer i = 0;
+		for(Table t : tables){
+			i += t.getSeatNum();
+		}
+		
+		Reservation r = new Reservation(restaurant, reservationTime, stayTime,i);
 		Reservation rr = reservationService.save(r,g);
 
 		
@@ -79,8 +84,10 @@ public class ReservationController {
 	}
 	
 	@RequestMapping(value = "/friend/{reservationId}",method = RequestMethod.POST)
-	public void inviteFriend(@RequestBody Guest g,@PathVariable Long reservationId){
+	public Reservation inviteFriend(@RequestBody Guest g,@PathVariable Long reservationId){
 		User user = (User) session.getAttribute("user");
+		Reservation r =reservationService.addToInvited(reservationId,g);
 		messageService.sendInvitation(user, g, reservationId);
+		return r;
 	}
 }

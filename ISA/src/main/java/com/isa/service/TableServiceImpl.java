@@ -57,9 +57,7 @@ public class TableServiceImpl implements TableService{
 			}
 		}
 		return status;
-
 	}
-
 
 
 }
