@@ -18,7 +18,7 @@ public class BidderServiceImpl implements BidderService {
 	
 	@Autowired
 	private  BidderRepository bidderRepository;
-	@Autowired
+	
 	
 
 	public List<Bidder> findAll() {
@@ -39,7 +39,7 @@ public class BidderServiceImpl implements BidderService {
 
 	@Override
 	public Bidder findByMail(String mail) {
-		// TODO Auto-generated method stub
+		
 		return bidderRepository.findByEmail(mail);
 	}
 

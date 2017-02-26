@@ -13,7 +13,6 @@ public class Bidder extends User {
 	public Bidder() {
 		super();
 	}
-// proveri ono za logovanje
-	//    !!!!!!!!!!!!!!!!!!!!
+
 	
 }

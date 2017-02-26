@@ -12,7 +12,6 @@ public interface BidderService {
 	public Bidder save(Bidder bidder);
 	public Bidder findOne(Long id);
 	public Bidder findByMail(String mail);
-
 	public void delete(Bidder b);
 	public Bidder update(Bidder b);
 }

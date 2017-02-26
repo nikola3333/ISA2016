@@ -50,4 +50,8 @@ public class BidderController {
 		Bidder bd = (Bidder)session.getAttribute("user");
 		return BidderService.findByMail(bd.getEmail());
 	}
+	@RequestMapping(value = "/user", method = RequestMethod.DELETE)
+	public void logout(){
+		session.invalidate();
+	}
 }

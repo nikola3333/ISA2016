@@ -40,7 +40,14 @@
 			templateUrl : 'bartender/bartender.html',			
 		})
 		.when('/bidder',{
-			templateUrl : 'bidder/bidder.html',			
+			templateUrl : 'bidder/bidder.html',	
+			controller : 'BidderController',
+			controllerAs : 'vm'
+		})
+		.when('/bidder/profile',{
+			templateUrl : 'bidder/bidderProfile.html',	
+			controller : 'BidderController',
+			controllerAs : 'vm'
 		})
 		.when('/cook',{
 			templateUrl : 'cook/cook.html',			
