@@ -7,11 +7,12 @@ import com.isa.entity.Bidder;
 
 public interface BidderService {
 
-	List<Bidder> findAll();
+	public List<Bidder> findAll();
 
-	Bidder save(Bidder bidder);
-    Bidder findOne(Long id);
-	Bidder findOneWithMail(String mail);
+	public Bidder save(Bidder bidder);
+	public Bidder findOne(Long id);
+	public Bidder findByMail(String mail);
 
-	void delete(Long id);
+	public void delete(Bidder b);
+	public Bidder update(Bidder b);
 }

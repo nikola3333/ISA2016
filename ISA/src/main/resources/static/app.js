@@ -39,6 +39,9 @@
 		.when('/bartender',{
 			templateUrl : 'bartender/bartender.html',			
 		})
+		.when('/bidder',{
+			templateUrl : 'bidder/bidder.html',			
+		})
 		.when('/cook',{
 			templateUrl : 'cook/cook.html',			
 		})
@@ -51,6 +54,11 @@
 		.when('/registerBartender',{
 			templateUrl : 'rest-man/registerBartender.html',
 			controller : 'RegisterBartenderController',
+			controllerAs : 'vm'
+		})
+		.when('/registerBidder',{
+			templateUrl : 'rest-man/registerBidder.html',
+			controller : 'RegisterBidderController',
 			controllerAs : 'vm'
 		})
 		.when('/registerCook',{

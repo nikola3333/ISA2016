@@ -4,7 +4,7 @@ insert into role(name) values ("SYSTEM_MANAGER");
 insert into role(name) values ("BARTENDER");
 insert into role(name) values ("COOK");
 insert into role(name) values ("RESTAURAN_MANAGER");
-insert into role(name) values ("SELLER");
+insert into role(name) values ("BIDDER");
 insert into role(name) values ("BOSS");
 
 
@@ -55,7 +55,7 @@ insert into user(email,first_name,last_name,password,role) values('manag2@rest.c
 insert into restauran_manager(confirmed_registration,user_id) values(1,16);
 
 insert into user(email,first_name,last_name,password,role) values('seller1@rest.com','Nikola','Smiljanic','456',7);
-insert into seller(user_id) values(17);
+insert into bidder(user_id) values(17);
 insert into user(email,first_name,last_name,password,role) values('seller2@rest.com','Vojislav','Rakocevic','789',7);
-insert into seller(user_id) values(18);
+insert into bidder(user_id) values(18);
 

@@ -5,6 +5,7 @@ import java.util.List;
 import org.assertj.core.util.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.isa.entity.Bidder;
 import com.isa.repository.BidderRepository;
@@ -12,38 +13,48 @@ import com.isa.repository.BidderRepository;
 
 
 @Service
+@Transactional
 public class BidderServiceImpl implements BidderService {
-
-	private final BidderRepository repository;
+	
 	@Autowired
-	public BidderServiceImpl(final BidderRepository repository) {
-		this.repository = repository;
-	}
+	private  BidderRepository bidderRepository;
+	@Autowired
+	
 
 	public List<Bidder> findAll() {
-		return Lists.newArrayList(repository.findAll());
+		return (List<Bidder>) bidderRepository.findAll();
 	}
 
 	@Override
 	public Bidder save(Bidder bidder) {
-		return repository.save(bidder);
+		return bidderRepository.save(bidder);
 	}
 
 	@Override
 	public Bidder findOne(Long id) {
-		return repository.findOne(id);
+		return bidderRepository.findOne(id);
 	}
 
-	@Override
-	public void delete(Long id) {
-		repository.delete(id);
-	}
+	
 
 	@Override
-	public Bidder findOneWithMail(String mail) {
+	public Bidder findByMail(String mail) {
 		// TODO Auto-generated method stub
-		return null;
+		return bidderRepository.findByEmail(mail);
 	}
-//OSTAVITI OVAKO, NE MOZE DA SE IZBACI ,DORADI POSLE
+
+	@Override
+	public void delete(Bidder b) {
+		// TODO Auto-generated method stub
+		bidderRepository.delete(b.getId());
+	}
+
+	@Override
+	public Bidder update(Bidder b) {
+		Bidder bider=bidderRepository.findByEmail(b.getEmail());
+		bider.setPassword(bider.getPassword());
+		return bidderRepository.save(bider);
+	}
+
 	
 }
