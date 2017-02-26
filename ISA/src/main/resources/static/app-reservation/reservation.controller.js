@@ -5,9 +5,9 @@
 	.module('app')
 	.controller('ReservationController',ReservationController);
 	
-	ReservationController.$inject = ['$location','$rootScope','ReservationService','AuthenticationService','$timeout','GuestService']
+	ReservationController.$inject = ['$location','$rootScope','$route','ReservationService','AuthenticationService','$timeout','GuestService']
 	
-	function ReservationController($location,$rootScope,ReservationService,AuthenticationService,$timeout,GuestService){
+	function ReservationController($location,$rootScope,$route,ReservationService,AuthenticationService,$timeout,GuestService){
 		var vm = this;
 		vm.selectedRestaurant = undefined;
 		vm.reservationDate = undefined;
@@ -22,8 +22,12 @@
 		vm.friends = [];
 		vm.searchCondition;
 		vm.invitedFriends = [];
-		vm.confirmedInvitation = [];	
+		vm.confirmedInvitation = [];
+		vm.registrationCode = null;
+		vm.invitedFriendCode = null;
+		vm.restoranOfReservation = null;
 		
+		$route.current.params.code1;		
 		vm.logout = logout;
 		vm.getNumber = getNumber;
 		vm.getTableOznaka = getTableOznaka;
@@ -40,9 +44,14 @@
 		vm.searchFriends = searchFriends;
 		vm.inviteFriend = inviteFriend;
 		vm.checkIfSendInvitation = checkIfSendInvitation;
-
+		vm.back = back;
+		vm.acceptInvitation = acceptInvitation;
+		vm.declineInvitation = declineInvitation;
+		vm.checkIfConfirmed = checkIfConfirmed;
+		vm.checkIfAccepted = checkIfAccepted;
+		vm.getRestaurantOfReservation = getRestaurantOfReservation;
 		
-		
+		alert($route.current.params.code1);
 		function logout(){
 			GuestService.logout()
 			.then(function(data){
@@ -54,12 +63,34 @@
 			})
 		}
 		
+		function back(){
+			$location.path('/homePage/restaurants')
+		}
+		
+		(function getInvitesFromReservation(){
+			if(typeof $route.current.params.code1 !== "undefined"){
+				vm.registrationCode = $route.current.params.code1;
+				vm.invitedFriendCode = $route.current.params.code2;
+				ReservationService.getReservation(vm.registrationCode,vm.invitedFriendCode)
+				.then(function(httpData){
+					vm.reservation = httpData.data;
+					vm.invitedFriends = vm.reservation.invitedFriends;
+					vm.confirmedInvitation = vm.reservation.guests;
+					getRestaurantOfReservation();
+				},
+				function(httpData){
+					console.log(httpData.data.message)
+				})
+			}			
+		})();
+		
 		(function setInvitationFriends(){
 			if(vm.reservation != undefined){
 				vm.invitedFriends = vm.reservation.invitedFriends;
 				vm.confirmedInvitation = vm.reservation.guests;
 			}
 		})();
+		
 		(function getSelectedRestaurant(){
 			ReservationService.getSelectedRestaurant()
 			.then(function(httpData){
@@ -207,7 +238,7 @@
         	var splitted = new Date(vm.reservation.date).toString().split(" ");
         	var splittedTime = splitted[4].split(":");
         	var splitted1 = new Date(vm.reservation.stay).toString().split(" ");
-        	var splittedStay = splitted[4].split(":");
+        	var splittedStay = splitted1[4].split(":");
 
         	if(condition == "date"){
         		return splitted[1]+ " "+splitted[2]+ " "+ splitted[3]
@@ -257,6 +288,58 @@
 						return false;
 				}
 			return true;
+		}
+		
+		function acceptInvitation(){
+			ReservationService.acceptInvitation(vm.reservation.id)
+			.then(function(httpData){
+				vm.reservation = httpData.data;
+				vm.invitedFriends = vm.reservation.invitedFriends;
+				vm.confirmedInvitation = vm.reservation.guests;
+			},
+			function(httpData){
+				console.log(httpData.data.message);
+			})
+		}
+		
+		function declineInvitation(){
+			ReservationService.declineInvitation(vm.reservation.id)
+			.then(function(httpData){
+				vm.reservation = httpData.data;
+				vm.invitedFriends = vm.reservation.invitedFriends;
+				vm.confirmedInvitation = vm.reservation.guests;
+			},
+			function(httpData){
+				console.log(httpData.data.message);
+			})			
+		}
+		
+		function checkIfConfirmed(){
+			for(var i = 0; i < vm.invitedFriends.length;i++){
+				var friend = vm.invitedFriends[i];
+				if(friend.id == vm.invitedFriendCode.substring(6))
+					return true;
+			}
+			return false;
+		}
+		//proveravam da li je potvrdio
+		function checkIfAccepted(){
+			for(var i = 0; i < vm.confirmedInvitation.length;i++){
+				var friend = vm.confirmedInvitation[i];
+				if(friend.id == vm.invitedFriendCode.substring(6))
+					return true;
+			}
+			return false;
+		}
+		
+		function getRestaurantOfReservation(){
+			ReservationService.getRestaurantOfReservation(vm.reservation.id)
+			.then(function(httpData){
+				vm.restaurantOfReservation = httpData.data;
+			},
+			function(httpData){
+				console.log(httpData.data.message);
+			})
 		}
 	}
 })();

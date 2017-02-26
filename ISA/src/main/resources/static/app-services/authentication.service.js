@@ -12,7 +12,6 @@
         service.Login = Login;
         service.SetCredentials = SetCredentials;
         service.ClearCredentials = ClearCredentials;
-
         return service;
 
         function Login(email, password, callback) {
@@ -26,7 +25,7 @@
                 });
 
         }
-
+                
         function SetCredentials(email, password) {
             var authdata = Base64.encode(email + ':' + password);
            // var authdataaa = Base64.decode(authdata);
