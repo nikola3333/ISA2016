@@ -38,9 +38,9 @@ insert into user(email,first_name,last_name,password,role) values('man@sys.com',
 insert into system_manager(user_id) values(10);
 
 insert into user(email,first_name,last_name,password,role) values('bart1@ender.com','Pera','Peric','789',4);
-insert into bartender(date_of_birth,dress_size,shoes_size,user_id) values('10/Nov/1999',11,47,9);
+insert into bartender(date_of_birth,dress_size,shoes_size,user_id) values('10/Nov/1999',11,47,11);
 insert into user(email,first_name,last_name,password,role) values('bart2@ender.com','Suma','Suma','000',4);
-insert into bartender(date_of_birth,dress_size,shoes_size,user_id) values('11/Nov/1999',12,48,6);
+insert into bartender(date_of_birth,dress_size,shoes_size,user_id) values('11/Nov/1999',12,48,12);
 
 
 insert into user(email,first_name,last_name,password,role) values('cook@1.com','Dzejmi','Oliver','111',5);
