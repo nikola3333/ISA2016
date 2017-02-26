@@ -9,32 +9,32 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
+import javax.persistence.Version;
 
 @Entity (name= "tables")
 public class Table {
 
-	
 	private Long id;
+	private Long version;
 	private Integer oznakaStola;
 	private Integer colNum;
 	private Integer rowNum;
+	private Integer seatNum;
 	private List<Reservation> reservations;
-
-	
 	
 	public Table() {
 		super();
 	}
 
 
-	public Table(Integer oznakaStola, Integer colNum, Integer rowNum) {
+	public Table(Integer oznakaStola, Integer colNum, Integer rowNum,Integer seatNum) {
 		super();
 		this.oznakaStola = oznakaStola;
 		this.colNum = colNum;
 		this.rowNum = rowNum;
+		this.seatNum = seatNum;
 	}
-
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -47,7 +47,7 @@ public class Table {
 		this.id = id;
 	}
 
-	@OneToMany
+	@ManyToMany
 	@JoinTable(
 			name = "TABLE_RESERVATIONS",
 			joinColumns = @JoinColumn(name = "TABLE_ID"),
@@ -84,4 +84,24 @@ public class Table {
 		this.rowNum = rowNum;
 	}
 
+	@Version
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
+	}
+
+
+	public Integer getSeatNum() {
+		return seatNum;
+	}
+
+
+	public void setSeatNum(Integer seatNum) {
+		this.seatNum = seatNum;
+	}
+	
+	
 }

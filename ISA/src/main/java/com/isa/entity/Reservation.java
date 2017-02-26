@@ -12,6 +12,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Reservation {
 
@@ -45,6 +47,7 @@ public class Reservation {
 		this.id = id;
 	}
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name ="RESTAURANT_ID")
 	public Restaurant getRestaurant() {

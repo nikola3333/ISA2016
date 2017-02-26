@@ -95,6 +95,11 @@
 			controller :'ReservationController',
 			controllerAs :'vm'
 		})
+		.when('/reservations/friends',{
+			templateUrl : 'app-reservation/reservation.inviteFriends.html',
+			controller :'ReservationController',
+			controllerAs :'vm'
+		})
 		.otherwise({redirectTo:'/#'})
 	}
 
