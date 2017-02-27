@@ -14,6 +14,10 @@
 		service.checkIfReserved = checkIfReserved;
 		service.confirmReservation = confirmReservation;
 		service.inviteFriend = inviteFriend;
+		service.getReservation = getReservation;
+		service.acceptInvitation = acceptInvitation;
+		service.declineInvitation = declineInvitation;
+		service.getRestaurantOfReservation = getRestaurantOfReservation;
 		return service;
 		
 		function getSelectedRestaurant(){
@@ -34,6 +38,22 @@
 		
 		function inviteFriend(friend,reservationId){
 			return $http.post("/reservations/friend/"+reservationId,friend);
+		}
+		
+		function getReservation(reservationCode,invitedFriendCode){
+			return $http.get('reservations/confirmation/'+reservationCode + '/' + invitedFriendCode);
+		}
+		
+		function acceptInvitation(reservationId){
+			return $http.post('reservations/invitation/'+reservationId);
+		}
+		
+		function declineInvitation(reservationId){
+			return $http.delete('reservations/invitation/'+ reservationId);
+		}
+		
+		function getRestaurantOfReservation(reservationId){
+			return $http.get('/reservations/restaurant/'+reservationId);
 		}
 	}
 })();

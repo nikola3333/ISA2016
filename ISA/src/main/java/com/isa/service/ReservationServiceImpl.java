@@ -58,4 +58,34 @@ public class ReservationServiceImpl implements ReservationService{
 		return reservationRepository.save(r);
 	}
 
+	@Override
+	public Reservation acceptInvitation(Long reservationId, Guest g) {
+		Reservation reservation = reservationRepository.findOne(reservationId);
+		Guest guest = null;
+		for(Guest gg : reservation.getInvitedFriends()){
+			if(gg.getId().equals(g.getId())){
+				guest = gg;
+			}
+		}
+		if(guest != null){
+			reservation.getGuests().add(guest);
+			reservation.getInvitedFriends().remove(guest);
+		}
+		return reservationRepository.save(reservation);
+	}
+	
+	@Override
+	public Reservation declineInvitation(Long reservationId,Guest g){
+		Reservation reservation = reservationRepository.findOne(reservationId);
+		Guest guest = null;
+		for(Guest gg : reservation.getInvitedFriends()){
+			if(gg.getId().equals(g.getId())){
+				guest = gg;
+			}
+		}
+		if(guest != null)
+			reservation.getInvitedFriends().remove(guest);
+		return reservationRepository.save(reservation);		
+	}
+
 }

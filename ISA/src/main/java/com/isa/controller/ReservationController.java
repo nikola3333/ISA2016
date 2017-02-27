@@ -19,9 +19,10 @@ import com.isa.entity.Reservation;
 import com.isa.entity.Restaurant;
 import com.isa.entity.Table;
 import com.isa.entity.User;
-import com.isa.repository.RestaurantRepository;
+import com.isa.repository.GuestRepository;
 import com.isa.service.MessageService;
 import com.isa.service.ReservationService;
+import com.isa.service.RestaurantService;
 import com.isa.service.TableService;
 
 @RestController
@@ -33,7 +34,9 @@ public class ReservationController {
 	@Autowired
 	private TableService tableService;
 	@Autowired
-	private RestaurantRepository restaurantService;
+	private RestaurantService restaurantService;
+	@Autowired
+	GuestRepository guestRepository;
 	@Autowired
 	HttpSession session;
 	@Autowired
@@ -90,4 +93,36 @@ public class ReservationController {
 		messageService.sendInvitation(user, g, reservationId);
 		return r;
 	}
+	
+	@RequestMapping(value = "/confirmation/{reservationCode}/{invitedFriendCode}",method = RequestMethod.GET)
+	public Reservation findOne(@PathVariable String reservationCode,@PathVariable String invitedFriendCode){
+		String idString = reservationCode.substring(6, reservationCode.length());
+		Long reservationId = Long.parseLong(idString);
+		String idString1 = invitedFriendCode.substring(6, invitedFriendCode.length());
+		Long friendId = Long.parseLong(idString1);
+		session.setAttribute("invitedFriend", guestRepository.findOne(friendId));
+		
+		return reservationService.findOne(reservationId);
+	}
+	
+	@RequestMapping(value = "/invitation/{reservationId}",method = RequestMethod.POST)
+	public Reservation acceptInvitation(@PathVariable Long reservationId){
+		Guest g = (Guest)session.getAttribute("invitedFriend");
+		return reservationService.acceptInvitation(reservationId, g);
+	}
+	
+	
+	@RequestMapping(value = "/invitation/{reservationId}",method = RequestMethod.DELETE)
+	public Reservation declineInvitation(@PathVariable Long reservationId){
+		Guest g = (Guest)session.getAttribute("invitedFriend");
+		return reservationService.declineInvitation(reservationId, g);
+	}
+	
+	@RequestMapping(value = "/restaurant/{reservationId}", method = RequestMethod.GET)
+	 public Restaurant getRestaurantOfReservation(@PathVariable Long reservationId){
+		 Reservation reservation = reservationService.findOne(reservationId);
+		 Restaurant r = reservation.getRestaurant();
+		 return r;
+	 }
+	
 }

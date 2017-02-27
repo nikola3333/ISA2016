@@ -25,7 +25,7 @@ public class MessageService {
 		String code = Integer.toString(n);
 		String idString = Long.toString(user.getId());
 		code += idString;
-		mail.setText("Please click on link to confirm your registration: http://localhost:8080/guests/confirmation/" + code);//od prvih pet cifara random br, ostale id quest-a
+		mail.setText("Please click on link to confirm your registration: http://localhost:6969/#!/guests/confirmation/" + code);//od prvih pet cifara random br, ostale id quest-a
 		javaMailSender.send(mail);
 	}
 	
@@ -41,7 +41,11 @@ public class MessageService {
 		String code = Integer.toString(n);
 		String idString = Long.toString(reservationId);
 		code += idString;
-		mail.setText(u.getFirstName()+" "+u.getLastName() +" invited you to join him, see details: http://localhost:8080/reservation/confirmation/" + code);//od prvih pet cifara random br, ostale id rezervacije
+		int  n2 = rand.nextInt(10000) + 99999;
+		String code2 = Integer.toString(n2);
+		String idString2 = Long.toString(friend.getId());
+		code2 += idString2;
+		mail.setText(u.getFirstName()+" "+u.getLastName() +" invited you to join him, see details: http://localhost:6969/#!/reservations/confirmation/" + code+"/" + code2);//od prvih pet cifara random br, ostale id rezervacije
 		javaMailSender.send(mail);		
 	}
 }

@@ -1,12 +1,15 @@
 <div>
-	<div class="col-sm-8 col-sm-offset-11">
+	<div  class = "col-sm-1 col-sm-offset-10" style = "float:right">
 		<a ng-click="vm.logout()">Logout</a>
 	</div>
+	<div  class = "col-sm-1" style = "float : left">
+		<a ng-click="vm.back()">Back</a>
+	</div>	
 	<div class="jumbotron">
 
 		<div class="container">
 			<div class = 'row'>
-				<h2 class = "col-sm-6" >
+				<h2 class = "col-sm-6" style = "min-height:70px">
 					<b><u>RESTORAN : {{vm.selectedRestaurant.name}}</u></b>
 				</h2>
 			</div>
@@ -24,7 +27,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class='col-sm-6 '>
+				<div class='col-sm-6 col'>
 					<div class="form-group">
 						<label for = "startDate">Maximum stay until: </label>
 				    	<div class='input-group date' id='datetimepicker3'>

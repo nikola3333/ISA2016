@@ -1,6 +1,12 @@
 <div>
-	<div align="center" class="alert alert-success">
- 		 <strong>Success!</strong> 
+	<div  class = "col-sm-1 col-sm-offset-10" style = "float:right">
+		<a ng-click = "vm.logout()">Logout</a>
+	</div>
+	<div  class = "col-sm-1" style = "float : left">
+		<a ng-click="vm.back()">Back</a>
+	</div>
+	<div align="center" class="alert alert-success"> 
+ 		<strong>Success!</strong> 
 	</div>
 	<div class = "row">
 		<div class = "col-sm-7">
@@ -80,6 +86,11 @@
 					</td>
 				</tr>
 			</table>
+		</div>
+	</div>
+	<div class = "row">
+		<div class = "col-sm-2 col-sm-offset-10" >
+			<button style = "min-width:150px" class = "btn btn-success" ng-click = "vm.order()">Order</button>
 		</div>
 	</div>
 </div>
