@@ -12,7 +12,7 @@
         vm.register = register;
         
         function register(){
-        	RegisterResService.CreateRes(vm.user)
+        	RegisterResService.CreateRes(vm.restaurant)
         	.then(function(response){
         		alert("done");
         	}

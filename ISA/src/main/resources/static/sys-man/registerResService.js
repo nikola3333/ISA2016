@@ -12,11 +12,9 @@
 		service.CreateRes = CreateRes;
 		return service;
 		
-		function CreateRes(user){
-            return $http.put('/restaurants', user)
-            .then(
-            	function(data){
-            	});
+		function CreateRes(restaurant){
+            return $http.put('/restaurants', restaurant)
+          
 
 		}
 		
