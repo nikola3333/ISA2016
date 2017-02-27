@@ -19,7 +19,8 @@ public class Restaurant {
 	private String name;
 	private String typeOfRestaurant;
 	private List<Region> regions;
-
+	private List<Foodstuffs> menu;
+	private List<Drink> drinks;
 	public Restaurant() {
 		super();
 	}
@@ -77,6 +78,32 @@ public class Restaurant {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinTable(
+			name = "MENU",
+			joinColumns = @JoinColumn(name = "RESTAURANT_ID"),
+			inverseJoinColumns = @JoinColumn(name = "FOOD_ID"))	
+	public List<Foodstuffs> getMenu() {
+		return menu;
+	}
+
+	public void setMenu(List<Foodstuffs> menu) {
+		this.menu = menu;
+	}
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinTable(
+			name = "RESTAURANT_DRINKS",
+			joinColumns = @JoinColumn(name = "RESTAURANT_ID"),
+			inverseJoinColumns = @JoinColumn(name = "DRINK_ID"))
+	public List<Drink> getDrinks() {
+		return drinks;
+	}
+
+	public void setDrinks(List<Drink> drinks) {
+		this.drinks = drinks;
 	}
 	
 	

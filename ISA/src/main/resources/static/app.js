@@ -120,6 +120,10 @@
 			controller :'ReservationController',
 			controllerAs :'vm'
 		})
+		.when('/order',{
+			templateUrl : 'app-order/order.view.html',
+
+		})
 		.otherwise({redirectTo:'/#'})
 	}
 

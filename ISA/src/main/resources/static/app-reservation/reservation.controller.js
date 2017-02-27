@@ -50,8 +50,9 @@
 		vm.checkIfConfirmed = checkIfConfirmed;
 		vm.checkIfAccepted = checkIfAccepted;
 		vm.getRestaurantOfReservation = getRestaurantOfReservation;
+		vm.order = order;
 		
-		alert($route.current.params.code1);
+		//alert($route.current.params.code1);
 		function logout(){
 			GuestService.logout()
 			.then(function(data){
@@ -340,6 +341,10 @@
 			function(httpData){
 				console.log(httpData.data.message);
 			})
+		}
+		
+		function order(){
+			$location.path('/order')
 		}
 	}
 })();

@@ -10,22 +10,71 @@ import javax.persistence.Id;
 @Entity
 public class Foodstuffs {
 	
+
+	private Long id;
+
+	private String name;
+
+	private String text;
+
+	private Integer price;
+
+	private Integer amount;
+	
+	
+
+	public Foodstuffs() {
+		super();
+	}
+
+	public Foodstuffs(String name, String text, Integer price, Integer amount) {
+		super();
+		this.name = name;
+		this.text = text;
+		this.price = price;
+		this.amount = amount;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "FOODSTUFFS_ID")
-	private Long id;
+	public Long getId() {
+		return id;
+	}
 
-	@Column
-	private String name;
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-	@Column
-	private String text;
+	public String getName() {
+		return name;
+	}
 
-	@Column
-	private Integer price;
+	public void setName(String name) {
+		this.name = name;
+	}
 
-	@Column
-	private Integer amount;
+	public String getText() {
+		return text;
+	}
 
+	public void setText(String text) {
+		this.text = text;
+	}
 
+	public Integer getPrice() {
+		return price;
+	}
+
+	public void setPrice(Integer price) {
+		this.price = price;
+	}
+
+	public Integer getAmount() {
+		return amount;
+	}
+
+	public void setAmount(Integer amount) {
+		this.amount = amount;
+	}
 }
