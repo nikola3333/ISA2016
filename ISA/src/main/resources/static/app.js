@@ -39,6 +39,12 @@
 		.when('/bartender',{
 			templateUrl : 'bartender/bartender.html',			
 		})
+		.when('/registerRestaurant',{
+			templateUrl : 'sys-man/registerRestaurant.html',
+			controller : 'RegisterRestaurantController',
+			controllerAs : 'vm'		
+		})
+		
 		.when('/bidder',{
 			templateUrl : 'bidder/bidder.html',	
 			controller : 'BidderController',

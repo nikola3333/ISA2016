@@ -23,7 +23,6 @@ public class Region {
 	private Integer colNum;
 	private List<Table> tables;
 	
-	
 	public Region() {
 		super();
 	}
@@ -67,7 +66,6 @@ public class Region {
 		this.name = name;
 	}
 
-
 	public Integer getRowNum() {
 		return rowNum;
 	}
@@ -82,8 +80,5 @@ public class Region {
 
 	public void setColNum(Integer colNum) {
 		this.colNum = colNum;
-	}
-	
-	
-	
+	}	
 }

@@ -12,7 +12,7 @@ public class Foodstuffs {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "FOODSTUFFS_ID")
+	@Column(name = "foodstuffs_id")
 	private Long id;
 
 	@Column
