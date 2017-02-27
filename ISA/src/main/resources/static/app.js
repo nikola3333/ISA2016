@@ -39,6 +39,9 @@
 		.when('/bartender',{
 			templateUrl : 'bartender/bartender.html',			
 		})
+		.when('/restaurants',{
+			templateUrl : 'restaurant/restaurant.html',			
+		})
 		.when('/registerRestaurant',{
 			templateUrl : 'sys-man/registerRestaurant.html',
 			controller : 'RegisterRestaurantController',
@@ -79,9 +82,10 @@
 			controller : 'RegisterCookController',
 			controllerAs : 'vm'
 		})
-		.when('/sys_manager',{
+		.when('/sysmanager',{
 			templateUrl : 'sys-man/systemManager.html',			
 		})	
+		
 					
 		.when('/',{
 			templateUrl:'login/login.view.html',			

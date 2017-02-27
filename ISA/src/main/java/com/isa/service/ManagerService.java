@@ -6,7 +6,7 @@ import com.isa.entity.RestauranManager;
 
 public interface ManagerService {
 
-public List<RestauranManager> findAll();
+    public List<RestauranManager> findAll();
 	
 	public RestauranManager findByEmail(String email);
 	

@@ -12,4 +12,5 @@ public interface RestaurantService {
 	public List<Restaurant> findByCondition(String condition,String sortCriteria);
 	public void delete(Restaurant r);
 	
+	
 }

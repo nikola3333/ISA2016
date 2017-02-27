@@ -43,7 +43,7 @@
                     }
 
                     if(response.data.role.name == "SYSTEM_MANAGER"){
-                        $location.path('/sys_manager');
+                        $location.path('/sysmanager');
                            }
                 }
                 else {
