@@ -39,11 +39,11 @@ public class RestaurantController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public Restaurant update(@RequestBody Restaurant r){
+	public Restaurant save(@RequestBody Restaurant r){
 		return restaurantService.save(r);
 	}
 	@RequestMapping(method = RequestMethod.PUT,consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Restaurant save(@RequestBody Restaurant res){
+	public Restaurant update(@RequestBody Restaurant res){
 		System.out.println("UPAO U SAVE");
 		Restaurant r = restaurantService.save(res);
 		System.out.println("ovo mu je ime..."+ r.getName());
@@ -72,4 +72,6 @@ public class RestaurantController {
 		else 
 			return null;
 	}
+	
+	
 }

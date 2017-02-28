@@ -3,6 +3,7 @@ package com.isa.entity;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -24,7 +26,7 @@ public class Reservation {
 	private Date stay;
 	private List<Guest> invitedFriends;
 	private Integer seatNum;
-	
+	private List<GuestOrder> orders;
 	public Reservation() {
 		super();
 	}
@@ -114,6 +116,21 @@ public class Reservation {
 
 	public void setSeatNum(Integer seatNum) {
 		this.seatNum = seatNum;
+	}
+
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinTable(
+			name = "RESERVATION_ORDERS",
+			joinColumns = @JoinColumn(name = "RESERVATION_ID"),
+			inverseJoinColumns = @JoinColumn(name = "ORDER_ID"))
+	public List<GuestOrder> getOrders() {
+		return orders;
+	}
+
+
+	public void setOrders(List<GuestOrder> orders) {
+		this.orders = orders;
 	}
 
 	

@@ -11,13 +11,14 @@
 		var service = {};
 		service.getSelectedRestaurant = getSelectedRestaurant;
 		service.sendDate = sendDate;
-		service.checkIfReserved = checkIfReserved;
+		service.reloadStatuses = reloadStatuses;
 		service.confirmReservation = confirmReservation;
 		service.inviteFriend = inviteFriend;
 		service.getReservation = getReservation;
 		service.acceptInvitation = acceptInvitation;
 		service.declineInvitation = declineInvitation;
 		service.getRestaurantOfReservation = getRestaurantOfReservation;
+		service.setReservation = setReservation;
 		return service;
 		
 		function getSelectedRestaurant(){
@@ -28,8 +29,8 @@
 			return $http.post('/reservations/date',dates);
 		}
 		
-		function checkIfReserved(tableId){
-			return $http.get("/reservations/" +tableId);
+		function reloadStatuses(){
+			return $http.get("/reservations/all/");
 		}
 		
 		function confirmReservation(tables){
@@ -54,6 +55,10 @@
 		
 		function getRestaurantOfReservation(reservationId){
 			return $http.get('/reservations/restaurant/'+reservationId);
+		}
+		
+		function setReservation(id){
+			return $http.post('/reservations/'+id);
 		}
 	}
 })();
