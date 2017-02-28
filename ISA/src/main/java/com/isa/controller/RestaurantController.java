@@ -24,14 +24,17 @@ public class RestaurantController {
 	
 	@Autowired
 	HttpSession session;
+	
 	@RequestMapping(value = "/find/{sortCriteria}",method = RequestMethod.GET)
 	public List<Restaurant> findAll(@PathVariable String sortCriteria){
-	
+		
 		return restaurantService.findAllSortedBy(sortCriteria);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public Restaurant findOnde(@PathVariable Long id){
+		Restaurant r = restaurantService.findOne((long) 1);
+		System.out.println("ovo mu je ime..."+ r.getDrinks());
 		return restaurantService.findOne(id);
 	}
 	

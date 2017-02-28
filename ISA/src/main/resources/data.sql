@@ -59,3 +59,17 @@ insert into bidder(user_id) values(17);
 insert into user(email,first_name,last_name,password,role) values('seller2@rest.com','Vojislav','Rakocevic','789',7);
 insert into bidder(user_id) values(18);
 
+insert into restaurant(restaurant_id,name,type_of_restaurant) values(1,'kacara','raznovrsno');
+insert into restaurant(restaurant_id,name,type_of_restaurant) values(2,'vegetarijano','vegan restoran');
+insert into restaurant(restaurant_id,name,type_of_restaurant) values(3,'kutlaca','kuvana jela');
+insert into restaurant(restaurant_id,name,type_of_restaurant) values(4,'arsenWenger','francuska kuhinja');
+
+insert into drink(drink_id,amount,name,price,text) values(1,50,'sprajt',120,'gazirani');
+insert into drink(drink_id,amount,name,price,text) values(2,50,'kola',130,'gazirani');
+insert into drink(drink_id,amount,name,price,text) values(3,50,'voda',100,'rosa');
+insert into drink(drink_id,amount,name,price,text) values(4,50,'pivo',160,'toceno');
+insert into drink(drink_id,amount,name,price,text) values(5,50,'vino',250,'crno');
+
+insert into restaurant_drinks(restaurant_id,drink_id) values(1,2);
+insert into restaurant_drinks(restaurant_id,drink_id) values(1,5);
+insert into restaurant_drinks(restaurant_id,drink_id) values(1,3);

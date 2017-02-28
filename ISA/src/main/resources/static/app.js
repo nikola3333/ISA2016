@@ -31,7 +31,9 @@
 			controllerAs : 'vm'
 		})
 		.when('/manager',{
-			templateUrl : 'rest-man/manager.html',			
+			templateUrl : 'rest-man/manager.html',
+			controller : 'ManagerController',
+			controllerAs : 'vm'
 		})
 		.when('/waiter',{
 			templateUrl : 'waiter/waiter.html',			
