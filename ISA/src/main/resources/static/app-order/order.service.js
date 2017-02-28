@@ -11,8 +11,11 @@
 		var service = {};
 		service.getReservation = getReservation;
 		service.getRestaurant = getRestaurant;
+		service.getGuest = getGuest;
 		service.addDrink = addDrink;
 		service.addFood = addFood;
+		service.deleteDrink = deleteDrink;
+		service.deleteFood = deleteFood;
 		return service;
 		
 		function getReservation(){
@@ -29,7 +32,19 @@
 
 		function addFood(food){
 			return $http.post('/reservations/orders/food',food);
-		} 		
+		}
+		
+		function getGuest(){
+			return $http.get('/reservations/orders/guest');
+		}
+		
+		function deleteDrink(drink){
+			return $http.delete('/reservations/orders/drink/'+drink.id);
+		}
+		
+		function deleteFood(food){
+			return $http.delete('/reservations/orders/food/'+food.id)
+		}
 	}
 	
 })();

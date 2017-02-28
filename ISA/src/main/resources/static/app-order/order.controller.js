@@ -10,18 +10,26 @@
 		var vm = this;
 		vm.reservation = {};
 		vm.restaurant = {};
+		vm.guest = {};
+		vm.orders = {};
+
 		
 		vm.getReservation = getReservation;
 		vm.getRestaurant = getRestaurant;
+		vm.getGuest = getGuest;
 		vm.addFood = addFood;
 		vm.addDrink = addDrink;
+		vm.findOrders = findOrders;
+		vm.deleteDrink = deleteDrink;
+		vm.deleteFood = deleteFood;
 		
 		vm.getReservation();
-		vm.getRestaurant();
 		function getReservation(){
 			OrderService.getReservation()
 			.then(function(httpData){
 				vm.reservation = httpData.data;
+				vm.getRestaurant();
+
 			},
 			function(httpData){
 				console.log(httpData.data.message);
@@ -32,15 +40,30 @@
 			OrderService.getRestaurant()
 			.then(function(httpData){
 				vm.restaurant = httpData.data;
+				vm.getGuest();
+
 			},
 			function(httpData){
 				console.log(httpData.data.message);
 			})
 		}
+		
+		function getGuest(){
+			OrderService.getGuest()
+			.then(function(httpData){
+				vm.guest = httpData.data;
+				vm.findOrders();
+			},
+			function(httpData){
+				console.log(httpData.data.message);
+			})
+		}
+		
 		function addFood(index){
 			OrderService.addFood(vm.restaurant.menu[index])
 			.then(function(httpData){
 				vm.reservation = httpData.data;
+				vm.findOrders()
 			},
 			function(httpData){
 				console.log(httpData.data.message);
@@ -51,10 +74,43 @@
 			OrderService.addDrink(vm.restaurant.drinks[index])
 			.then(function(httpData){
 				vm.reservation = httpData.data;
+				vm.findOrders();
 			},
 			function(httpData){
 				console.log(httpData.data.message);
 			})			
+		}
+		
+		function findOrders(){
+			for(var i = 0; i < vm.reservation.orders.length;i++){
+				var order = vm.reservation.orders[i];
+				if(vm.guest.id ==vm.reservation.orders[i].guest.id){
+					vm.orders = vm.reservation.orders[i];
+					return;
+				}
+			}
+		}
+		
+		function deleteDrink(index){
+			OrderService.deleteDrink(vm.orders.drinks[index])
+			.then(function(httpData){
+				vm.reservation = httpData.data;
+				vm.findOrders();
+			},
+			function(httpData){
+				console.log(httpData.data.message);
+			})			
+		}
+		
+		function deleteFood(index){
+			OrderService.deleteFood(vm.orders.foodstuffs[index])
+			.then(function(httpData){
+				vm.reservation = httpData.data;
+				vm.findOrders();
+			},
+			function(httpData){
+				console.log(httpData.data.message);
+			})				
 		}
 	}
 })();

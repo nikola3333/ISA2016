@@ -145,4 +145,48 @@ public class ReservationServiceImpl implements ReservationService{
 		return reservationRepository.save(reservation);
 	}
 
+	@Override
+	public Reservation deleteFood(Guest g, Long id, Long itemId) {
+		Reservation reservation = reservationRepository.findOne(id);
+		int pos = 0;
+		for(GuestOrder o : reservation.getOrders()){
+			if(o.getGuest().getId().equals(g.getId()))
+				for(int i = 0 ; i < o.getFoodstuffs().size();i++){
+					if(o.getFoodstuffs().get(i).getId().equals(itemId)){
+						pos = i;
+						break;
+					}
+				}
+		}
+		for(GuestOrder o : reservation.getOrders()){
+			if(o.getGuest().getId().equals(g.getId()))
+				o.getFoodstuffs().remove(pos);
+		}
+		return reservationRepository.save(reservation);
+	}
+
+	@Override
+	public Reservation deleteDrink(Guest g, Long id, Long itemId) {
+		// TODO Auto-generated method stub
+		Reservation reservation = reservationRepository.findOne(id);
+	
+		
+		int pos = 0;
+		for(GuestOrder o : reservation.getOrders()){
+			if(o.getGuest().getId().equals(g.getId()))
+				for(int i = 0 ; i < o.getDrinks().size();i++){
+					if(o.getDrinks().get(i).getId().equals(itemId)){
+						pos = i;
+						break;
+					}
+				}
+		}
+		for(GuestOrder o : reservation.getOrders()){
+			if(o.getGuest().getId().equals(g.getId())){
+				o.getDrinks().remove(pos);
+			}
+		}
+		return reservationRepository.save(reservation);
+	}
+
 }

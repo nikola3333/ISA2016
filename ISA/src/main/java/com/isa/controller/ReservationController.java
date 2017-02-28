@@ -174,4 +174,36 @@ public class ReservationController {
 		return reservationService.addDrink(g,id,item);
 	}	
 	
+	@RequestMapping(value = "/orders/guest", method = RequestMethod.GET)
+	public Guest getGuest(){
+		Guest g = (Guest) session.getAttribute("user");
+		if(g == null)
+			g = (Guest) session.getAttribute("invitedFriend");
+		
+		return g;
+	}
+	
+	
+	
+	@RequestMapping(value = "/orders/food/{itemId}",method = RequestMethod.DELETE)
+	public Reservation deleteFood(@PathVariable Long itemId){
+		Guest g = (Guest)session.getAttribute("user");
+		if(g == null)
+			g = (Guest) session.getAttribute("invitedFriend");
+		Long id = (Long) session.getAttribute("reservationId");
+		
+		return reservationService.deleteFood(g,id,itemId);
+	}
+
+	@RequestMapping(value = "/orders/drink/{itemId}",method = RequestMethod.DELETE)
+	public Reservation deleteDrink(@PathVariable Long itemId){
+		Guest g = (Guest)session.getAttribute("user");
+		if(g == null)
+			g = (Guest) session.getAttribute("invitedFriend");
+		Long id = (Long) session.getAttribute("reservationId");
+		
+		return reservationService.deleteDrink(g,id,itemId);
+	}	
+	
+	
 }
