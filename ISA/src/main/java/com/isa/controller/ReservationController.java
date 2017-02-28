@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -203,7 +204,13 @@ public class ReservationController {
 		Long id = (Long) session.getAttribute("reservationId");
 		
 		return reservationService.deleteDrink(g,id,itemId);
-	}	
+	}
+	
+	@RequestMapping(value = "/guest",method = RequestMethod.GET)
+	public List<Reservation> getReservations(){
+		Guest g = (Guest) session.getAttribute("user");
+		return reservationService.getReservations(g);
+	}
 	
 	
 }

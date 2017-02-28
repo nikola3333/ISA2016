@@ -1,6 +1,7 @@
 package com.isa.service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -189,4 +190,19 @@ public class ReservationServiceImpl implements ReservationService{
 		return reservationRepository.save(reservation);
 	}
 
+	@Override
+	public List<Reservation> getReservations(Guest g) {
+		Calendar cal = Calendar.getInstance();
+		ArrayList<Reservation> result = new ArrayList<Reservation>();
+		ArrayList<Reservation> reservations = (ArrayList<Reservation>) reservationRepository.findAll();
+		for(Reservation r : reservations){
+			for(Guest guest : r.getGuests()){
+				if(g.getId().equals(guest.getId()) && r.getDate().after(cal.getTime())){
+					result.add(r);
+					break;
+				}
+			}
+		}
+		return result;
+	}
 }

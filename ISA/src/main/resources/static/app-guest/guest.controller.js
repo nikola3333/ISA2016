@@ -9,6 +9,7 @@
 	
 	function GuestController($location,$rootScope,GuestService,AuthenticationService,$timeout){
 		var vm = this;
+		vm.homeSelected = false;
 		vm.restaurantsSelected = false;
 		vm.friendsSelected = false;
 		vm.profileSelected = false;
@@ -26,7 +27,10 @@
 		vm.searchRestaurantsCondition = "";
 		vm.criterias = [{id : "1", name : "Sort by"},{id:"2",name:"Name"},{id:"3",name:"Type"}]
 		vm.sortRestaurantsCriteria = {id : "1", name : "Sort by"}
+		vm.reservations = [];
+		vm.restaurantsReservations = [];
 		
+		vm.showHome = showHome;
 		vm.showRestaurants = showRestaurants;
 		vm.showFriends = showFriends;
 		vm.showProfile = showProfile;
@@ -53,8 +57,14 @@
 		vm.searchRestaurants = searchRestaurants;
 		vm.sortCriteriaChanged = sortCriteriaChanged;
 		vm.reserve = reserve;
+		vm.loadReservations = loadReservations;
+		vm.getDate = getDate;
+		vm.getRestaurantOfReservation = getRestaurantOfReservation;
+		vm.getRestOfRes = getRestOfRes;
+		vm.getRestaurant = getRestaurant;
  		vm.getLoggedUser();
-		
+ 		vm.addToSession = addToSession;
+		vm.loadReservations();
 		
 		//nalazim logovanog gosta
 		function getLoggedUser(){
@@ -79,14 +89,23 @@
 			})
 		}
 		function showRestaurants(){
+			vm.homeSelected = false;
 			vm.restaurantsSelected = true;
 			vm.friendsSelected = false;
 			vm.profileSelected = false;
         	$location.path('/homePage/restaurants');
 
 		}
-		
+		function showHome(){
+			vm.homeSelected = true;
+			vm.restaurantsSelected = false;
+			vm.friendsSelected = false;
+			vm.profileSelected = false;
+        	$location.path('/homePage');
+
+		}		
 		function showFriends(){
+			vm.homeSelected = false;
 			vm.restaurantsSelected = false;
 			vm.friendsSelected = true;
 			vm.profileSelected = false;
@@ -94,6 +113,7 @@
 		}
 		
 		function showProfile(){
+			vm.homeSelected = false;			
 			vm.restaurantsSelected = false;
 			vm.friendsSelected = false;
 			vm.profileSelected = true;		
@@ -290,6 +310,70 @@
 			GuestService.addRestaurantToSession(vm.selectedRestaurant.id)
 			.then(function(httpData){
 	        	$location.path('/reservation');
+			},
+			function(httpData){
+				console.log(httpData.data.message);
+			})
+		}
+		
+		function loadReservations(){
+			GuestService.loadReservations()
+			.then(function(httpData){
+				vm.reservations = httpData.data;
+				vm.getRestOfRes();
+			},
+			function(httpData){
+				console.log(httpData.data.message);
+			})
+		}
+		
+		function getDate(date){
+	    	var splitted = new Date(date).toString().split(" ");
+	    	var splittedTime = splitted[4].split(":");
+
+	    	return splitted[1]+ " "+splitted[2]+ " "+ splitted[3] + " "	+splittedTime[0] + ":" + splittedTime[1];		
+
+		}
+		function getRestOfRes(){
+			for(var i = 0; i < vm.reservations.length;i++){
+				var id = vm.reservations[i].id;
+				vm.getRestaurantOfReservation(id);
+			}
+		}
+		function getRestaurantOfReservation(id){
+			vm.restaurantsReservations = [];
+			GuestService.getRestaurantOfReservation(id)
+			.then(function(httpData){
+				for(var j = 0; j < vm.reservations.length;j++){
+					if(vm.reservations[j].id == id){
+						vm.reservations[j].restaurant = httpData.data;
+					}
+				}
+				vm.restaurantsReservations.push({reservation  : id, restaurant : httpData.data});
+			},
+			function(httpData){
+				console.log(httpData.data.message);
+			})
+		}
+		
+		function getRestaurant(reservationId){
+			for(var i = 0; i < vm.restaurantsReservations.length;i++){
+				if(vm.restaurantsReservations[i].reservation == reservationId)
+					return vm.restaurantsReservations[i].restaurant.name
+			}
+		}
+		
+		function addToSession(reservationId){
+			var restaurantId = null;
+			for(var i = 0; i < vm.restaurantsReservations.length;i++){
+				if(vm.restaurantsReservations[i].reservation == reservationId){
+					restaurantId =  vm.restaurantsReservations[i].restaurant.id
+					break;
+				}
+			}			
+			GuestService.setRestaurantReservation(restaurantId,reservationId)
+			.then(function(httpData){
+				$location.path("/order");
 			},
 			function(httpData){
 				console.log(httpData.data.message);

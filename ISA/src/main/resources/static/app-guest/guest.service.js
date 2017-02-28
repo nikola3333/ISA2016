@@ -26,6 +26,9 @@
 		service.getAllRestaurants = getAllRestaurants;
 		service.searchRestaurants = searchRestaurants;
 		service.addRestaurantToSession = addRestaurantToSession;
+		service.loadReservations = loadReservations;
+		service.getRestaurantOfReservation = getRestaurantOfReservation;
+		service.setRestaurantReservation = setRestaurantReservation;
 		return service;
 		
 		function getLoggedUser(){
@@ -87,5 +90,15 @@
 		function addRestaurantToSession(id){
 			return $http.post('/restaurants/session/'+id);
 		}
+		function loadReservations(){
+			return $http.get('/reservations/guest')
+		}
+		function getRestaurantOfReservation(id){
+			return $http.get('/reservations/restaurant/'+id)
+		}
+		function setRestaurantReservation(restaurantId,reservationId){
+			return $http.post('/restaurants/'+restaurantId+'/reservation/'+reservationId);
+		}
+		
 	}
 })();

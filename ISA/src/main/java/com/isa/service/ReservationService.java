@@ -20,4 +20,5 @@ public interface ReservationService {
 	public Reservation addDrink(Guest g, Long id, Drink item);
 	public Reservation deleteFood(Guest g, Long id, Long itemId);
 	public Reservation deleteDrink(Guest g, Long id, Long itemId);
+	public List<Reservation> getReservations(Guest g);
 }

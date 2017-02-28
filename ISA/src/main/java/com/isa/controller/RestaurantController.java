@@ -73,5 +73,10 @@ public class RestaurantController {
 			return null;
 	}
 	
+	@RequestMapping(value = "/{restaurantId}/reservation/{reservationId}",method = RequestMethod.POST)
+	public void setRestaurantReservation(@PathVariable Long restaurantId,@PathVariable Long reservationId ){
+		session.setAttribute("restaurant", restaurantId);
+		session.setAttribute("reservationId", reservationId);
+	}
 	
 }
