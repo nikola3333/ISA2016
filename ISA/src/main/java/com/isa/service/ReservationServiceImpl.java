@@ -8,7 +8,10 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.isa.entity.Drink;
+import com.isa.entity.Foodstuffs;
 import com.isa.entity.Guest;
+import com.isa.entity.GuestOrder;
 import com.isa.entity.Reservation;
 import com.isa.repository.ReservationRepository;
 
@@ -86,6 +89,60 @@ public class ReservationServiceImpl implements ReservationService{
 		if(guest != null)
 			reservation.getInvitedFriends().remove(guest);
 		return reservationRepository.save(reservation);		
+	}
+
+	@Override
+	public Reservation addFood(Guest g, Long id, Foodstuffs item) {
+		Reservation reservation = reservationRepository.findOne(id);
+		if(reservation.getOrders() == null){
+			reservation.setOrders(new ArrayList<GuestOrder>());
+			GuestOrder order = new GuestOrder(g);
+			order.getFoodstuffs().add(item);
+			reservation.getOrders().add(order);
+		}
+			
+		else{
+			boolean find = false;
+			for(GuestOrder o : reservation.getOrders()){
+				if(o.getGuest().getId().equals(g.getId())){
+					o.getFoodstuffs().add(item);
+					find = true;
+				}
+			}
+			if(!find){
+				GuestOrder order = new GuestOrder(g);
+				order.getFoodstuffs().add(item);
+				reservation.getOrders().add(order);
+			}
+		}
+		return reservationRepository.save(reservation);
+	}
+
+	@Override
+	public Reservation addDrink(Guest g, Long id, Drink item) {
+		Reservation reservation = reservationRepository.findOne(id);
+		if(reservation.getOrders() == null){
+			reservation.setOrders(new ArrayList<GuestOrder>());
+			GuestOrder order = new GuestOrder(g);
+			order.getDrinks().add(item);
+			reservation.getOrders().add(order);
+		}
+			
+		else{
+			boolean find = false;
+			for(GuestOrder o : reservation.getOrders()){
+				if(o.getGuest().getId().equals(g.getId())){
+					o.getDrinks().add(item);
+					find = true;
+				}
+			}
+			if(!find){
+				GuestOrder order = new GuestOrder(g);
+				order.getDrinks().add(item);
+				reservation.getOrders().add(order);
+			}
+		}
+		return reservationRepository.save(reservation);
 	}
 
 }

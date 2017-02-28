@@ -1,3 +1,54 @@
 <div>
-	ORDER
+	<div  class = "col-sm-1 " style = "float:left">
+		<a ng-click = "vm.logout()">Home</a>
+	</div>
+
+	<div align="center" class="alert alert-success"> 
+ 		<b>ORDER FOOD</b> 
+	</div>
+	
+	<div class = "row">
+		<div class = "col-sm - 6 col-sm-offset-1">
+			<div class ="row">
+				<div class = " table-responsive col-sm-4 ">					
+					<table class = "table " >
+						<caption><b>MENU</b></caption>
+						<tr>
+							<th>Name</th>
+							<th>Description</th>
+							<th>Price</th>
+						<td>
+						<tr ng-repeat = "f in vm.restaurant.menu">
+							<td>{{f.name}}</td>
+							<td>{{f.text}}</td>
+							<td>{{f.price}}</td>
+							<td><button class = "btn btn-success" ng-click = "vm.addFood($index)">ORDER</button></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class ="row">
+				<div class = " table-responsive col-sm-4 ">					
+					<table class = "table">
+						<caption><b>DRINKS</b></caption>
+						<tr>
+							<th>Name</th>
+							<th>Description</th>
+							<th>Price</th>
+						<td>
+						<tr ng-repeat = "d in vm.restaurant.drinks">
+							<td>{{d.name}}</td>
+							<td>{{d.text}}</td>
+							<td>{{d.price}}</td>
+							<td><button class = "btn btn-success" ng-click = "vm.addDrink($index)">ORDER</button></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<div class = "col-sm-5 col-sm-offset-1">
+		</div>
+	
+	</div>
 </div>

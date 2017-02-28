@@ -3,6 +3,8 @@ package com.isa.controller;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,7 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.isa.entity.Drink;
+import com.isa.entity.Foodstuffs;
 import com.isa.entity.Guest;
+import com.isa.entity.Region;
 import com.isa.entity.Reservation;
 import com.isa.entity.Restaurant;
 import com.isa.entity.Table;
@@ -42,12 +47,21 @@ public class ReservationController {
 	@Autowired
 	private MessageService messageService;
 	
-	@RequestMapping(value = "/{tableId}" , method = RequestMethod.GET)
-	public boolean checkIfReserved(@PathVariable Long tableId){
+	@RequestMapping(value = "/all/" , method = RequestMethod.GET)
+	public Map<Long,Boolean> checkIfReserved(){
+		HashMap<Long, Boolean> statuses = new HashMap<>();
 		Date reservationTime = (Date)session.getAttribute("reservationTime");
 		Date stayTime = (Date) session.getAttribute("stayTime");
-		
-		return tableService.checkIfReserved(tableId, reservationTime, stayTime);
+		Long restaurantId = (Long) session.getAttribute("restaurant");
+		Restaurant restaurant = restaurantService.findOne(restaurantId);
+		for(Region region: restaurant.getRegions()){
+			Boolean status = false;
+			for(Table t: region.getTables()){
+				status = tableService.checkIfReserved(t.getId(), reservationTime, stayTime);
+				statuses.put(t.getId(), status);
+			}
+		}
+		return statuses;
 	}
 	
 	@RequestMapping(value = "/date",method = RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -58,7 +72,8 @@ public class ReservationController {
 		timeC.setTime(dates.get(1));
 		timeC.set(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH), cal.get(Calendar.DATE));
 		session.setAttribute("reservationTime", dates.get(0));
-		session.setAttribute("stayTime", timeC.getTime());
+		Date dateStay = timeC.getTime();
+		session.setAttribute("stayTime", dateStay);
 		return timeC.getTime();
 	}
 	
@@ -124,5 +139,39 @@ public class ReservationController {
 		 Restaurant r = reservation.getRestaurant();
 		 return r;
 	 }
+	
+	@RequestMapping(value = "/{id}",method = RequestMethod.POST)
+	public void setReservation(@PathVariable Long id ){
+		session.setAttribute("reservationId", id);
+	}
+	
+	@RequestMapping(method = RequestMethod.GET)
+	public Reservation getReservation(){
+		Long id = (Long)session.getAttribute("reservationId");
+		Reservation r = null;
+		if(id != null)
+			r= reservationService.findOne(id);
+		return r;
+	}
+	
+	@RequestMapping(value = "/orders/food",method = RequestMethod.POST)
+	public Reservation addFood(@RequestBody Foodstuffs item){
+		Guest g = (Guest)session.getAttribute("user");
+		if(g == null)
+			g = (Guest) session.getAttribute("invitedFriend");
+		Long id = (Long) session.getAttribute("reservationId");
+		
+		return reservationService.addFood(g,id,item);
+	}
+
+	@RequestMapping(value = "/orders/drink",method = RequestMethod.POST)
+	public Reservation addDrink(@RequestBody Drink item){
+		Guest g = (Guest)session.getAttribute("user");
+		if(g == null)
+			g = (Guest) session.getAttribute("invitedFriend");
+		Long id = (Long) session.getAttribute("reservationId");
+		
+		return reservationService.addDrink(g,id,item);
+	}	
 	
 }

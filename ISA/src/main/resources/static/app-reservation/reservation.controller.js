@@ -33,10 +33,10 @@
 		vm.getTableOznaka = getTableOznaka;
 		vm.rowCheckNumberOfTables = rowCheckNumberOfTables;
 		vm.addToSelected = addToSelected;
-		vm.checkIfAdded = checkIfAdded;
+		vm.reloadStatuses = reloadStatuses;
+		vm.checkIfAdded  = checkIfAdded;
 		vm.removeFromSelected = removeFromSelected;
 		vm.showTables = showTables;
-		vm.checkIfReserved = checkIfReserved;
 		vm.getStatus = getStatus;
 		vm.getTable = getTable;
 		vm.confirmReservation = confirmReservation;
@@ -110,15 +110,25 @@
         $("#datetimepicker1").on('dp.change',function(e){
         	vm.reservedDate =new Date (e.date);
         	var current = new Date();
-        	if(vm.reservedDate.getTime() >= current.getTime())
+        	if(vm.reservedDate.getTime() >= current.getTime()){
         		vm.reservedTimeSelected = true
+        	}
+        	else{
+        		vm.reservedTimeSelected = false;
+        	}
+        		
+        		
 
         })
         $("#datetimepicker3").on('dp.change',function(e){
         	vm.stayTime = new Date(e.date);
         	var current = new Date();
-        	if(vm.stayTime.getTime() > current.getTime())
+        	if(vm.stayTime.getTime() > current.getTime()){
         		vm.staySelected = true;
+        	}
+        	else{
+        		vm.staySelectd = false;
+        	}
         	//alert(date);
         })
         
@@ -187,41 +197,44 @@
         //prikazujem tabele i postavljam unete datume rezervacije 
         function showTables(){
         	var dates = []
+        	vm.tableView = false;
         	dates.push(vm.reservedDate);
         	dates.push(vm.stayTime);
         	ReservationService.sendDate(dates)
         	.then(function(httpData){
         		vm.stayTime = new Date(httpData.data);
         		alert(vm.stayTime);
-        		vm.tableView = true;
+        		vm.reloadStatuses();
         	},
         	function(httpData){
         		console.log(httpData.data.message);
         	})
         }
+        
+        
+        
         //na serveru vrsim proveru da li je sto rezervisan, za uneti termin
-        function checkIfReserved(regionIndex,row,col){
-        	var reg = vm.selectedRestaurant.regions[regionIndex];
-        	var t = vm.getTable(regionIndex,row,col);
-    		if(t != null)
-	        	ReservationService.checkIfReserved(t.id)
-	        	.then(function(httpData){
-	        		vm.tablesStatus.push({id:t.id,value: httpData.data})
+        function reloadStatuses(regionIndex,row,col){
+	        ReservationService.reloadStatuses()
+	       	.then(function(httpData){
+	       		vm.tablesStatus = httpData.data;
+           		vm.tableView = true;
+
 	        	},
-	        	function(httpData){
-	        		console.log(httpData.data.message)
-	        	})
+	        function(httpData){
+	       		console.log(httpData.data.message)
+	       	})
         }
         //proveram da li je sto, za uneti termin, vec rezervisan 
         function getStatus(regionIndex,row,col){
         	var rez = undefined;
         	var t = vm.getTable(regionIndex,row,col);
     		if(t != null)
-	    		for(var i = 0; i < vm.tablesStatus.length;i++){
-	    			var tableStatus = vm.tablesStatus[i];
-	    			if(tableStatus.id == t.id)
-	    				return tableStatus.value;
-	    		}
+    			if(vm.tablesStatus.hasOwnProperty(t.id)){
+    				var status = vm.tablesStatus[t.id];
+    				return vm.tablesStatus[t.id];
+    				}
+
     		return false;
         }
         
@@ -344,7 +357,13 @@
 		}
 		
 		function order(){
-			$location.path('/order')
+			ReservationService.setReservation(vm.reservation.id)
+			.then(function(httpData){
+				$location.path("/order");
+			},
+			function(httpData){
+				console.log(httpData.data.message)
+			})
 		}
 	}
 })();

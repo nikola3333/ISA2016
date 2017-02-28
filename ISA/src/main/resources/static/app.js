@@ -132,7 +132,8 @@
 		})
 		.when('/order',{
 			templateUrl : 'app-order/order.view.html',
-
+			controller :'OrderController',
+			controllerAs :'vm'			
 		})
 		.otherwise({redirectTo:'/#'})
 	}
