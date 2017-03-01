@@ -245,7 +245,9 @@
             	$location.path('/reservations/friends');
         	},
         	function(httpData){
-        		
+        		alert(httpData.data.message);
+        		vm.selectedTables = [];
+        		vm.showTables();
         	})
         }
         function getDateFromReservation(condition){

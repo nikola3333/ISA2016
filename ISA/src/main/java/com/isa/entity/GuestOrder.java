@@ -20,10 +20,22 @@ public class GuestOrder {
 	List<Foodstuffs> foodstuffs;
 	List<Drink> drinks;
 	Guest guest;
+	//Boolean status; 
 	
 	public GuestOrder() {
 		super();
 	}
+
+	
+	
+/*	public GuestOrder(Long id, Guest guest, Boolean status) {
+		super();
+		this.id = id;
+		this.guest = guest;
+		this.status = status;
+	}*/
+
+
 
 	public GuestOrder(Guest guest) {
 		super();
@@ -83,6 +95,14 @@ public class GuestOrder {
 	public void setGuest(Guest guest) {
 		this.guest = guest;
 	}
+
+/*	public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
+	}*/
 
 	
 	

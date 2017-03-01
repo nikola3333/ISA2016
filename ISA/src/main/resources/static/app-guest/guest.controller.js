@@ -70,7 +70,7 @@
  		vm.getRestOfResHistory = getRestOfResHistory;
  		vm.getRestaurantOfReservationHistory = getRestaurantOfReservationHistory;
 		vm.loadReservations();
-		
+		vm.loadHistory();
 		//nalazim logovanog gosta
 		function getLoggedUser(){
 			GuestService.getLoggedUser()
@@ -138,43 +138,7 @@
 				vm.selectedPerson = vm.friendRequests[index].requestSender;
 		}		
 		
-		
-		//sve goste koji nisu u listi prijatelja
-		/*function getNoneFriends(){
-			GuestService.getNoneFriends()
-			.then(function(httpData){
-				vm.noneFriends = httpData.data;
-				vm.getFriends();
-			},
-			function(data){
-				vm.noneFriends = [];
-			})
-		}*/
-		
-		//ucitaj sve prijatelje logovanog gost
-		/*function getFriends(){
-			GuestService.getFriends()
-			.then(function(httpData){
-				vm.friends = httpData.data;
-				vm.getFriendRequests();
-			},
-			function(httpData){
-				console.log(httpData.data.message);
-				
-			})
-		}*/
-		
-		//ucitaj sve zahteve za prijateljstvo, i one koje je poslao logovani gost, i one koje primio
-		/*function getFriendRequests(){
-			GuestService.getFriendRequests()
-			.then(function(httpData){
-				vm.friendRequests = httpData.data;
-			},
-			function(httpData){
-				console.log(httpData.data.message);
-				
-			})
-		}*/
+
 		
 		//setuj polja za update acount-a
 		function updateAccount(){

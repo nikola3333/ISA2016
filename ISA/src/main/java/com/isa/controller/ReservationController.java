@@ -91,15 +91,19 @@ public class ReservationController {
 			i += t.getSeatNum();
 		}
 		
+		ArrayList<Table> ts = tableService.checkVersion(tables,reservationTime,stayTime);
+		
 		Reservation r = new Reservation(restaurant, reservationTime, stayTime,i);
 		Reservation rr = reservationService.save(r,g);
-
 		
-		for(Table t : tables){
-			t.getReservations().add(rr);
-			tableService.save(t);
+		if(ts.size() > 0){
+			for(Table t : ts){
+				t.getReservations().add(rr);
+				tableService.save(t);
+			}
+			return rr;
 		}
-		return rr;
+		return null;
 	}
 	
 	@RequestMapping(value = "/friend/{reservationId}",method = RequestMethod.POST)
@@ -212,7 +216,7 @@ public class ReservationController {
 		return reservationService.getReservations(g);
 	}
 	
-	@RequestMapping(value = "/reservations/history", method = RequestMethod.GET)
+	@RequestMapping(value = "/history", method = RequestMethod.GET)
 	public List<Reservation> getReservationsHistory(){
 		Guest g = (Guest)session.getAttribute("user");
 		return reservationService.getHistory(g);

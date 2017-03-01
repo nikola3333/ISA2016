@@ -1,5 +1,6 @@
 package com.isa.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class TableServiceImpl implements TableService{
 
 	@Override
 	public Table save(Table t) {
-		// TODO Auto-generated method stub
+
 		return tableRepository.save(t);
 	}
 
@@ -57,6 +58,23 @@ public class TableServiceImpl implements TableService{
 			}
 		}
 		return status;
+	}
+
+	@Override
+	public ArrayList<Table> checkVersion(ArrayList<Table> tables, Date reservationTime, Date stayTime) {
+		ArrayList<Table> result = new ArrayList<Table>();
+		for(Table t : tables){
+			Table table = tableRepository.findOne(t.getId());
+			if(!t.getVersion().equals(table.getId())){
+				boolean status = checkIfReserved(t.getId(), reservationTime, stayTime);
+				if(status) throw new IllegalArgumentException("One of selected tables has been reserved");
+				result.add(table);	
+			}
+			else{
+				result.add(table);
+			}
+		}
+		return result;
 	}
 
 

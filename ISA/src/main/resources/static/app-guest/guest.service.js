@@ -31,6 +31,7 @@
 		service.setRestaurantReservation = setRestaurantReservation;
 		service.cancelReservation = cancelReservation;
 		service.loadHistory = loadHistory;
+		service.activateAccount = activateAccount;
 		return service;
 		
 		function getLoggedUser(){
@@ -107,6 +108,10 @@
 		function loadHistory(){
 			return $http.get('/reservations/history');
 		}
+		function activateAccount(code){
+			return $http.get('/guests/confirmation/'+code);
+		}
+		
 		
 	}
 })();

@@ -179,13 +179,16 @@ public class ReservationServiceImpl implements ReservationService{
 		
 		int pos = 0;
 		for(GuestOrder o : reservation.getOrders()){
-			if(o.getGuest().getId().equals(g.getId()))
+			if(o.getGuest().getId().equals(g.getId())){
+				//if(o.getStatus()){
 				for(int i = 0 ; i < o.getDrinks().size();i++){
 					if(o.getDrinks().get(i).getId().equals(itemId)){
 						pos = i;
 						break;
 					}
 				}
+			//}
+			}
 		}
 		for(GuestOrder o : reservation.getOrders()){
 			if(o.getGuest().getId().equals(g.getId())){

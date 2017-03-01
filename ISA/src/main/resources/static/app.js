@@ -137,6 +137,11 @@
 			controller :'OrderController',
 			controllerAs :'vm'			
 		})
+		.when('/guests/confirmation/:code1',{
+			templateUrl : 'app-guest/confirm.account.view.html',
+			controller :'ConfirmAccountController',
+			controllerAs :'vm'
+		})
 		.otherwise({redirectTo:'/#'})
 	}
 
@@ -150,8 +155,10 @@
 		$rootScope.$on('$locationChangeStart',function(event, next, current){
 			var restrictedPage = $.inArray($location.path(),['/register'])=== -1;//da li login ili register postoje u putanji
 			var reservationPage = $location.path().includes('/reservations/confirmation/')=== false;
+			var confirmationPage = $location.path().includes('/guests/confirmation/')=== false;
+
 			var loggedIn = $rootScope.globals.currentUser;
-			if(reservationPage && restrictedPage && !loggedIn){
+			if(reservationPage && confirmationPage && restrictedPage && !loggedIn){
 				$location.path('/');
 			}
 		});

@@ -17,7 +17,7 @@ public class MessageService {
 
 	public void sendMessage(User user){
 		SimpleMailMessage mail = new SimpleMailMessage();//spring.mail.properties.mail.smtp.ssl.trust = smtp.gmail.com
-		mail.setTo(user.getEmail());
+		mail.setTo("restaurant.reservation.team@gmail.com");
 		mail.setFrom("restaurant.reservation.team@gmail.com");
 		mail.setSubject("Activation link");
 		Random rand = new Random();

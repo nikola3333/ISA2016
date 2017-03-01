@@ -17,7 +17,7 @@
         function register(){
         	RegisterService.CreateGuest(vm.user)
         	.then(function(response){
-        		alert("dasda");
+				$location.path('/');
         	},
         	function(errorResponse){
         		vm.errorMessage = "User with that email already exists"
