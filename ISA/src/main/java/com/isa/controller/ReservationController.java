@@ -212,5 +212,33 @@ public class ReservationController {
 		return reservationService.getReservations(g);
 	}
 	
+	@RequestMapping(value = "/reservations/history", method = RequestMethod.GET)
+	public List<Reservation> getReservationsHistory(){
+		Guest g = (Guest)session.getAttribute("user");
+		return reservationService.getHistory(g);
+	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public void cancelReservation(@PathVariable Long id){
+		ArrayList<Table> tables = (ArrayList<Table>) tableService.findAll();
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.MINUTE, cal.get(Calendar.MINUTE)+31);
+		Reservation r = reservationService.findOne(id);
+		if(cal.getTime().after(r.getDate())) throw new IllegalAccessError("You can't cancel reservation, less than 30 minutes to reservation");
+		Reservation temp = null;
+		for(Table t : tables){
+			for(Reservation res : t.getReservations()){
+				if(res.getId().equals(id)){
+					temp = res;
+				}
+			}
+			if(temp != null){
+				t.getReservations().remove(temp);
+			}
+		}
+		reservationService.delete(id);
+	}
+	
+	
 	
 }

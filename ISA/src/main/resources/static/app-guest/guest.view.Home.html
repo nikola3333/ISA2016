@@ -28,7 +28,7 @@
 					<td>{{vm.getDate(res.date)}}</td>
 					<td>{{vm.getDate(res.stay)}}</td>
 					<td><button style = "min-width:100px" class = "btn btn-success" ng-click = "vm.addToSession(res.id)">Order</button></td>
-					<td><button style = "min-width:100px" ng-show = "res.guests[0].id == vm.loggedUser.id" class = "btn btn-danger" ng-click = "vm.addToSession(res.id)">Cancel reservation</button></td>
+					<td><button style = "min-width:100px" ng-show = "res.guests[0].id == vm.loggedUser.id" class = "btn btn-danger" ng-click = "vm.cancelReservation(res.id)">Cancel reservation</button></td>
 				</tr>
 			</table>
 		</div>

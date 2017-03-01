@@ -23,6 +23,7 @@ public class ReservationServiceImpl implements ReservationService{
 	@Autowired
 	private ReservationRepository reservationRepository;
 	
+	
 	@Override
 	public List<Reservation> findAll() {
 		// TODO Auto-generated method stub
@@ -44,11 +45,15 @@ public class ReservationServiceImpl implements ReservationService{
 	}
 
 	@Override
-	public void delete(Reservation r) {
-		// TODO Auto-generated method stub
-		reservationRepository.delete(r);
+	public void delete(Long id) {
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.MINUTE, cal.get(Calendar.MINUTE)+31);
+		
+		Reservation r = reservationRepository.findOne(id);
+		if(cal.getTime().after(r.getDate())) throw new IllegalAccessError("You can't cancel reservation, less than 30 minutes to reservation");
+		
+		reservationRepository.delete(id);
 	}
-
 	@Override
 	public Reservation addToInvited(Long reservationId, Guest g) {
 		//int i = 0;
@@ -204,5 +209,21 @@ public class ReservationServiceImpl implements ReservationService{
 			}
 		}
 		return result;
+	}
+
+	@Override
+	public List<Reservation> getHistory(Guest g) {
+		Calendar cal = Calendar.getInstance();
+		ArrayList<Reservation> result = new ArrayList<Reservation>();
+		ArrayList<Reservation> reservations = (ArrayList<Reservation>) reservationRepository.findAll();
+		for(Reservation r : reservations){
+			for(Guest guest : r.getGuests()){
+				if(g.getId().equals(guest.getId()) && r.getStay().before(cal.getTime())){
+					result.add(r);
+					break;
+				}
+			}
+		}
+		return result;		
 	}
 }

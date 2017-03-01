@@ -29,6 +29,8 @@
 		service.loadReservations = loadReservations;
 		service.getRestaurantOfReservation = getRestaurantOfReservation;
 		service.setRestaurantReservation = setRestaurantReservation;
+		service.cancelReservation = cancelReservation;
+		service.loadHistory = loadHistory;
 		return service;
 		
 		function getLoggedUser(){
@@ -98,6 +100,12 @@
 		}
 		function setRestaurantReservation(restaurantId,reservationId){
 			return $http.post('/restaurants/'+restaurantId+'/reservation/'+reservationId);
+		}
+		function cancelReservation(id){
+			return $http.delete('/reservations/'+id);
+		}
+		function loadHistory(){
+			return $http.get('/reservations/history');
 		}
 		
 	}

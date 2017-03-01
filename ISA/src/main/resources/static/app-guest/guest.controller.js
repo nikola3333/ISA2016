@@ -29,6 +29,7 @@
 		vm.sortRestaurantsCriteria = {id : "1", name : "Sort by"}
 		vm.reservations = [];
 		vm.restaurantsReservations = [];
+		vm.history = [];
 		
 		vm.showHome = showHome;
 		vm.showRestaurants = showRestaurants;
@@ -64,6 +65,10 @@
 		vm.getRestaurant = getRestaurant;
  		vm.getLoggedUser();
  		vm.addToSession = addToSession;
+ 		vm.cancelReservation = cancelReservation;
+ 		vm.loadHistory = loadHistory;
+ 		vm.getRestOfResHistory = getRestOfResHistory;
+ 		vm.getRestaurantOfReservationHistory = getRestaurantOfReservationHistory;
 		vm.loadReservations();
 		
 		//nalazim logovanog gosta
@@ -374,6 +379,48 @@
 			GuestService.setRestaurantReservation(restaurantId,reservationId)
 			.then(function(httpData){
 				$location.path("/order");
+			},
+			function(httpData){
+				console.log(httpData.data.message);
+			})
+		}
+		
+		function cancelReservation(id){
+			GuestService.cancelReservation(id)
+			.then(function(httpData){
+				vm.loadReservations();
+			},
+			function(httpData){
+				console.log(httpDada.data.message);
+			})
+		}
+		
+		function loadHistory(){
+			GuestService.loadHistory()
+			.then(function(httpData){
+				vm.history = httpData.data;
+				vm.getRestOfResHistory();
+			},
+			function(httpData){
+				console.log(httpData.data.message);
+			})
+		}
+		
+		function getRestOfResHistory(){
+			for(var i = 0; i < vm.history.length;i++){
+				var id = vm.history[i].id;
+				vm.getRestaurantOfReservationHistory(id);
+			}
+		}
+		
+		function getRestaurantOfReservationHistory(id){
+			GuestService.getRestaurantOfReservation(id)
+			.then(function(httpData){
+				for(var j = 0; j < vm.history.length;j++){
+					if(vm.history[j].id == id){
+						vm.history[j].restaurant = httpData.data;
+					}
+				}
 			},
 			function(httpData){
 				console.log(httpData.data.message);
