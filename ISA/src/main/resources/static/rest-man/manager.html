@@ -17,6 +17,8 @@
 				<a href="#!/registerBidder" class="button">Bidder   </a>
 				<br>
 				
+				<a href="#!/inShift"> class="button"> Shifts</a>
+				
 				<div class = "row">
 
 				<div class="  col-md-2 col-md-offset-1">
@@ -60,7 +62,25 @@
 						<div>
 							<br>
 						</div>
-						
+						<div>
+							<br>
+						</div>
+						<div class="col-sm-5 col-xs-6 tital ">Drinks:</div>
+						 
+						 <ul class="col-sm-5 col-xs-6 tital">
+							<li ng-repeat="drink in vm.selectedRestaurant.drinks" class="col-sm-5 col-xs-6 tital-item "  ng-click = "vm.setSelectedRestaurant($index)">
+				                  {{drink.name}}
+							</li>
+						</ul>
+						</div>
+						<div class="col-sm-5 col-xs-11 tital ">Food:</div>
+						 
+						 <ul class="col-sm-5 col-xs-6 tital">
+						 <li ng-repeat="menu in vm.selectedRestaurant.menu" class="col-sm-5 col-xs-6 tital-item "  ng-click = "vm.setSelectedRestaurant($index)">
+				              <div> {{menu.name}} {{menu.price}} </div>
+						 </li>
+						</ul>
+						</div>
 						
 						
 						<div class="col-sm-7"></div>

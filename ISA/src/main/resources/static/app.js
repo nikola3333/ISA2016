@@ -35,6 +35,9 @@
 			controller : 'ManagerController',
 			controllerAs : 'vm'
 		})
+		.when('/inShift',{
+			templateUrl : 'rest-man/shifts.html',			
+		})
 		.when('/waiter',{
 			templateUrl : 'waiter/waiter.html',			
 		})

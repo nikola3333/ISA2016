@@ -70,6 +70,10 @@ insert into drink(drink_id,amount,name,price,text) values(3,50,'voda',100,'rosa'
 insert into drink(drink_id,amount,name,price,text) values(4,50,'pivo',160,'toceno');
 insert into drink(drink_id,amount,name,price,text) values(5,50,'vino',250,'crno');
 
+insert into foodstuffs(foodstuffs_id,amount,name,price,text) values(1,40,'cevapi',300,'rolovani');
+
 insert into restaurant_drinks(restaurant_id,drink_id) values(1,2);
 insert into restaurant_drinks(restaurant_id,drink_id) values(1,5);
 insert into restaurant_drinks(restaurant_id,drink_id) values(1,3);
+
+insert into menu(id,description,name,price,restaurant_id,food_id) values(1,'10komada','cevapi',200,1,1);
