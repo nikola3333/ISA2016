@@ -22,11 +22,13 @@
 					<th>Restaurant</th>
 					<th>Starts</th>
 					<th>Ends</th>
+					<th>Confirmed invitation</th>
 				</tr>
 				<tr ng-repeat = "res in vm.reservations">
 					<td>{{res.restaurant.name}}</td>
 					<td>{{vm.getDate(res.date)}}</td>
 					<td>{{vm.getDate(res.stay)}}</td>
+					<td><span ng-hide = "friend.id == vm.loggedUser.id" ng-repeat = "friend in res.guests"> {{friend.firstName}} {{friend.lastName}}; </span></td>
 					<td><button style = "min-width:100px" class = "btn btn-success" ng-click = "vm.addToSession(res.id)">Order</button></td>
 					<td><button style = "min-width:100px" ng-show = "res.guests[0].id == vm.loggedUser.id" class = "btn btn-danger" ng-click = "vm.cancelReservation(res.id)">Cancel reservation</button></td>
 				</tr>
@@ -43,7 +45,7 @@
 				<tr ng-repeat = "res in vm.history">
 					<td>{{res.restaurant.name}}</td>
 					<td>{{vm.getDate(res.date)}}</td>
-					<td></td>
+					<td><span ng-repeat = "friend in res.guests"> {{friend.firstName}} {{friend.lastName}}; </span></td>
 					<td><button style = "min-width:100px" class = "btn btn-success" ng-click = "vm.addToSession(res.id)">Rate</button></td>
 				</tr>
 			</table>
